@@ -7,7 +7,7 @@ from getbrowsers import getBrowsers
 
 class MyDialog(wx.Dialog):
 	def __init__(self, parent, links, browsers):
-		super(MyDialog, self).__init__(parent, title = 'Open With Dialog')
+		super(MyDialog, self).__init__(parent, title = 'Open With')
 		self.links= links
 		panel = wx.Panel(self, -1)
 		self.listBox = wx.ListBox(panel, -1)
@@ -22,13 +22,13 @@ class MyDialog(wx.Dialog):
 			btn = wx.Button(panel, -1, label = browser)
 			btn.Bind(wx.EVT_BUTTON, lambda evt, temp=path: self.onOpen(evt, temp))
 			buttonSizer.Add(btn, 1, wx.ALL, 10)
-		self.cancel = wx.Button(panel, wx.ID_CANCEL)
-		self.cancel.Bind(wx.EVT_BUTTON, self.onCancel)
-		buttonSizer.Add(self.cancel, 1, wx.EXPAND|wx.ALL, 10)
 		self.ok= wx.Button(panel, wx.ID_OK)
 		self.ok.SetDefault()
 		self.ok.Bind(wx.EVT_BUTTON, self.onOk)
 		buttonSizer.Add(self.ok, 1, wx.EXPAND|wx.ALL, 10)
+		self.cancel = wx.Button(panel, wx.ID_CANCEL)
+		self.cancel.Bind(wx.EVT_BUTTON, self.onCancel)
+		buttonSizer.Add(self.cancel, 1, wx.EXPAND|wx.ALL, 10)
 		mainSizer = wx.BoxSizer(wx.HORIZONTAL)
 		mainSizer.Add(listBoxSizer, 1, wx.EXPAND|wx.ALL, 10)
 		mainSizer.Add(buttonSizer, 1, wx.EXPAND|wx.ALL, 10)
