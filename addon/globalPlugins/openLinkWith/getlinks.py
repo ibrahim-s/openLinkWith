@@ -2,15 +2,23 @@
 #this module is aimed to get the links under selected text
 
 import textInfos
-import urlfinder
+import re
 import api, ui
 import addonHandler
 addonHandler.initTranslation()
 
-#the function that specifies if a certain text is selected or not
-#and if it is, returns text selected
-#this piece of code really is taken from a previous addon, thanks to the hands behind it.
+def find_urls (text):
+	"""Find URLs in a text string.
+	"""
+	url_re = re.compile("(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
+	bad_chars = '\'\\.,[](){}:;"'
+	return [s.strip(bad_chars) for s in url_re.findall(text)]
+
 def isSelectedText():
+	"""this function  specifies if a certain text is selected or not
+	and if it is, returns text selected.
+	"""
+
 	obj=api.getFocusObject()
 	treeInterceptor=obj.treeInterceptor
 	if hasattr(treeInterceptor,'TextInfo') and not treeInterceptor.passThrough:
@@ -33,7 +41,7 @@ def getLinks():
 		return
 	else:
 		text= isSelectedText()
-		links=urlfinder.find_urls(text)
+		links=find_urls(text)
 		if links==[]:
 			#Translators: Displayed if there is no links in selected text.
 			ui.message(_("no links in selected text"))
