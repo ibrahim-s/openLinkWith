@@ -1,4 +1,4 @@
-_winreg=None
+﻿_winreg=None
 import os
 import sys
 if sys.version.startswith('3'):

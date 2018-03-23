@@ -1,5 +1,6 @@
-#graphical user interface for the dialog to be displayed, containing a listbox for the links and buttons for several browsers.
+﻿#graphical user interface for the dialog to be displayed, containing a listbox for the links and buttons for several browsers.
 import wx
+import config
 import os 
 import webbrowser 
 import subprocess 
@@ -7,7 +8,7 @@ from getbrowsers import getBrowsers
 
 class MyDialog(wx.Dialog):
 	def __init__(self, parent, links, browsers):
-		super(MyDialog, self).__init__(parent, title = 'Open With')
+		super(MyDialog, self).__init__(parent, title = 'Open Link With')
 		self.links= links
 		panel = wx.Panel(self, -1)
 		self.listBox = wx.ListBox(panel, -1)
@@ -38,12 +39,18 @@ class MyDialog(wx.Dialog):
 		self.listBox.Set(self.links)
 		self.listBox.SetSelection(0)
 		self.Centre()
+		self.Raise()
 		self.Show()
+ 
+	def checkCloseAfterActivatingLink(self):
+		if config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]== True:
+			self.Destroy()
 
 	def onOpen(self, evt, exe_path):
 		url= self.getUrl()
 		if url:
 			subprocess.Popen(exe_path+' '+url)
+			self.checkCloseAfterActivatingLink()
 
 	def getUrl(self):
 		i = self.listBox.GetSelection()
@@ -58,3 +65,4 @@ class MyDialog(wx.Dialog):
 		url= self.getUrl()
 		if url:
 			webbrowser.open(url)
+			self.checkCloseAfterActivatingLink()
