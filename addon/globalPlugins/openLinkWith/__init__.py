@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #This addon iextracts urls from selected text, put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
 #This addon is under GNU General Public License gpl2.0.
 

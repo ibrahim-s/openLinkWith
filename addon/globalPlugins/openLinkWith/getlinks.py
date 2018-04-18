@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #this module is aimed to get the links under selected text
 
 import textInfos

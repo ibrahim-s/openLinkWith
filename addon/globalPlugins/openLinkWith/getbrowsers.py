@@ -1,12 +1,10 @@
-﻿_winreg=None
 import os
 import sys
-if sys.version.startswith('3'):
-	import winreg
-	_winreg= winreg
-elif sys.version.startswith('2'):
+
+try:
+	import winreg as _winreg
+except ImportError:
 	import _winreg
-	_winreg= _winreg
 
 #these are the keys that we are going to look for in the registry
 exeLabels= {'firefox.exe': 'Firefox', 'chrome.exe': 'Google Chrome', 'iexplore.exe': 'Internet Explorer', 'opera.exe': 'Opera', 'seamonkey.exe': 'Seamonkey', 'wyzo.exe': 'Wyzo'}
