@@ -22,57 +22,70 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
 
-		self.prefmenu= gui.mainFrame.sysTrayIcon.preferencesMenu
-		self.addonmenu= self.prefmenu.Append(wx.ID_ANY,
-		# translators: label of openLinkWith setting menu in preferences menu
-		_("&OpenLinkWith..."),
-		"Opens setting dialog"
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onOpenSettingDialog, self.addonmenu)
+		if hasattr(gui, 'SettingsPanel'):
+			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithSettings)
+		else:
+			self.prefmenu= gui.mainFrame.sysTrayIcon.preferencesMenu
+			self.addonmenu= self.prefmenu.Append(wx.ID_ANY,
+			# Translators: label of openLinkWith setting menu in preferences menu
+			_("&OpenLinkWith..."),
+			"Opens setting dialog"
+			)
+			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onOpenSettingDialog, self.addonmenu)
 
 	def onOpenSettingDialog(self, evt):
-		gui.mainFrame._popupSettingsDialog(OpenLinkWithSetting)
+		gui.mainFrame._popupSettingsDialog(OpenLinkWithSettings)
 
 	def terminate(self):
-		try:
-			self.prefmenu.RemoveItem(self.addonmenu)
-		except (wx.PyDeadObjectError, RuntimeError):
-			pass
+		if hasattr(gui, 'SettingsPanel'):
+			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(OpenLinkWithSettings)
+		else:
+			try:
+				self.prefmenu.RemoveItem(self.addonmenu)
+			except :
+				pass
 
 	def script_opendialog(self, gesture):
 		global DIALOG
 		if DIALOG:
-			#Translators: displayed if another instance of the dialog is present.
+			# Translators: displayed if another instance of the dialog is present.
 			ui.message(_("another instance of the dialog is openned, close it please"))
 		else:
-			list= getLinks()
-			if list:
+			list_= getLinks()
+			if list_:
 				browsers= getBrowsers()
-				DIALOG= MyDialog(gui.mainFrame, list, browsers)
+				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
-	#Translators: Message to be displayed in input help mode.
+	# Translators: Message to be displayed in input help mode.
 	script_opendialog.__doc__= _("Extract links in selected text, put them in list to open with")
 
-#default configuration of settings dialog for the addon
+#default configuration of settings dialog or panel for the addon
 configspec={
 	"closeDialogAfterActivatingALink": "boolean(default= False)"
 }
 config.conf.spec["openLinkWith"]= configspec
 
-class OpenLinkWithSetting(gui.SettingsDialog):
-	#translators: title of the dialog
+parentClass= gui.SettingsPanel if hasattr(gui, 'SettingsPanel') else gui.SettingsDialog
+#make either SettingsPanel or SettingsDialog class
+class OpenLinkWithSettings(parentClass):
+	# Translators: title of the dialog
 	title= _("Open link with settings")
 
 	def makeSettings(self, sizer):
 		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=sizer)
-		# translators: label of the check box 
+		# Translators: label of the check box 
 		self.closeDialogCheckBox=wx.CheckBox(self,label=_("&Close openLinkWith Dialog after activating a link"))
 		self.closeDialogCheckBox.SetValue(config.conf["openLinkWith"]["closeDialogAfterActivatingALink"])
 		settingsSizerHelper.addItem(self.closeDialogCheckBox)
 
-	def onOk(self, evt):
-		config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
-		super(OpenLinkWithSetting, self).onOk(evt)
+	if hasattr(parentClass, 'onSave'):
+		def onSave(self):
+			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
 
-	def postInit(self):
-		self.closeDialogCheckBox.SetFocus()
+	else:
+		def onOk(self, evt):
+			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
+			super(OpenLinkWithSettings, self).onOk(evt)
+
+		def postInit(self):
+			self.closeDialogCheckBox.SetFocus()

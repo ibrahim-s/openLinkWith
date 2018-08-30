@@ -24,6 +24,7 @@ and you can adjust that from openLinkWith settings dialog in preferences menu.
 *	Added a configuration settings dialog for the addon in preferences menu  
 So that we have the obtion to close the dialog after activating a link.
 *	Added Edge browser to browsers available if in windows10.
+*	Added settings panel to  fit  with NVDA2018.2 or later.
 
 ## Changes for 1.0 ##
 

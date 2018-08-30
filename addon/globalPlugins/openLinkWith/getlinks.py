@@ -36,14 +36,14 @@ def getLinks():
 	"""This function returns a list of links if present under selected text.
 	"""
 	if not isSelectedText():
-		#Translators: Displayed if there is no text selected.
+		# Translators: Displayed if there is no text selected.
 		ui.message(_("No text selected"))
 		return
 	else:
 		text= isSelectedText()
 		links=find_urls(text)
 		if links==[]:
-			#Translators: Displayed if there is no links in selected text.
+			# Translators: Displayed if there is no links in selected text.
 			ui.message(_("no links in selected text"))
 			return
 		else:
