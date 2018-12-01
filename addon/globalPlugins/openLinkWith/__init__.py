@@ -6,9 +6,9 @@ import globalPluginHandler
 import gui, wx
 from gui import guiHelper
 import config
-from mydialog import MyDialog
-from getlinks import getLinks
-from getbrowsers import getBrowsers
+from .mydialog import MyDialog
+from .getlinks import getLinks
+from .getbrowsers import getBrowsers
 import ui
 from logHandler import log
 import addonHandler

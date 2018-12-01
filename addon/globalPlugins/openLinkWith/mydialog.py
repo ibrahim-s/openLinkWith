@@ -6,7 +6,7 @@ import os
 import winVersion
 import webbrowser 
 import subprocess 
-from getbrowsers import getBrowsers
+from .getbrowsers import getBrowsers
 
 class MyDialog(wx.Dialog):
 
