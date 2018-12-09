@@ -57,7 +57,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
 	# Translators: Message to be displayed in input help mode.
-	script_opendialog.__doc__= _("Extract links in selected text, put them in list to open with")
+	script_opendialog.__doc__= _("Display Open Link With dialog with extracted links.")
 
 #default configuration of settings dialog or panel for the addon
 configspec={
