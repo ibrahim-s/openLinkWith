@@ -1,7 +1,8 @@
 # Open Link With #
 
 Authors: Ibrahim Hamadeh, Belala Toufik  
-Download [development version 2.0](https://github.com/ibrahim-s/openLinkWith/releases/download/2.0-dev/openLinkWith-2.0-dev.nvda-addon)  
+NVDA compatibility: 2017.3 to 2019.2  
+Download [development version 2.1](https://github.com/ibrahim-s/openLinkWith/releases/download/2.1-dev/openLinkWith-2.1-dev.nvda-addon)  
 
 This addon is used to extract links from selected text  
 display them in a list in a dialog  

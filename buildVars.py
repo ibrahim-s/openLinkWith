@@ -22,7 +22,7 @@ addon_info = {
 	Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 	"""),
 	# version
-	"addon_version" : "2.0-dev",
+	"addon_version" : "2.1-dev",
 	# Author(s)
 	"addon_author" : u"Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Belala Toufik<belaalatoufik@gmail.com>",
 	# URL for the add-on documentation support
@@ -30,9 +30,9 @@ addon_info = {
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
 	# Minimum NVDA version supported
-	"addon_minimumNVDAVersion" : "2017.3",
+	"addon_minimumNVDAVersion" : "2017.3.0",
 	# Last NVDA version supported/tested
-	"addon_lastTestedNVDAVersion" : "2019.1",
+	"addon_lastTestedNVDAVersion" : "2019.3.0",
 	# Add-on update channel (default is stable or None)
 	"addon_updateChannel" : None,
 }
