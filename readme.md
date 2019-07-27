@@ -2,7 +2,8 @@
 
 Authors: Ibrahim Hamadeh, Belala Toufik  
 NVDA compatibility: 2017.3 to 2019.2  
-Download [development version 2.1](https://github.com/ibrahim-s/openLinkWith/releases/download/2.1-dev/openLinkWith-2.1-dev.nvda-addon)  
+Compatibility with python3: Yes  
+Download [development version 2.2](https://github.com/ibrahim-s/openLinkWith/releases/download/2.2-dev/openLinkWith-2.2-dev.nvda-addon)  
 
 This addon is used to extract links from selected text  
 display them in a list in a dialog  
@@ -19,6 +20,9 @@ from openLinkWith category, in input gestures dialog, in NVDA preferences menu.
 *	otherwise, tab to the browser you want to open it with, and hit enter.  
 *	Remember that you got the obtion to close the dialog, after activating a link  
 and you can adjust that from openLinkWith settings dialog in preferences menu.  
+
+## Changes for 2.2 ##
+*	Ensures compatibility with python3.  
 
 ## Changes for 2.0 ##
 

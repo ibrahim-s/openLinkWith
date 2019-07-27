@@ -10,7 +10,7 @@ addonHandler.initTranslation()
 def find_urls (text):
 	"""Find URLs in a text string.
 	"""
-	url_re = re.compile("(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
+	url_re = re.compile(r"(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
 	bad_chars = '\'\\.,[](){}:;"'
 	return [s.strip(bad_chars) for s in url_re.findall(text)]
 
