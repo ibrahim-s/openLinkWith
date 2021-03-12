@@ -1,9 +1,9 @@
 # Open Link With #
 
 Authors: Ibrahim Hamadeh, Belala Toufik  
-NVDA compatibility: 2017.3 to 2019.2  
+NVDA compatibility: 2017.3 to 2019.3  
 Compatibility with python3: Yes  
-Download [development version 2.2](https://github.com/ibrahim-s/openLinkWith/releases/download/2.2-dev/openLinkWith-2.2-dev.nvda-addon)  
+Download [development version][1]  
 
 This addon is used to extract links from selected text  
 display them in a list in a dialog  
@@ -35,3 +35,5 @@ So that we have the obtion to close the dialog after activating a link.
 ## Changes for 1.0 ##
 
 *	Initial version.
+
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.2-dev/openLinkWith-2.2-dev.nvda-addon

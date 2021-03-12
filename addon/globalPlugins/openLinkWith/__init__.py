@@ -69,7 +69,7 @@ parentClass= gui.SettingsPanel if hasattr(gui, 'SettingsPanel') else gui.Setting
 #make either SettingsPanel or SettingsDialog class
 class OpenLinkWithSettings(parentClass):
 	# Translators: title of the dialog
-	title= _("Open link with settings")
+	title= _("Open link with")
 
 	def makeSettings(self, sizer):
 		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=sizer)
