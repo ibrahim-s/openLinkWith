@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #This addon iextracts urls from selected text, put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
-#This addon is under GNU General Public License gpl2.0.
+#This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh.
+# See the file COPYING for more details.
 
 import globalPluginHandler
 import gui, wx
@@ -10,6 +11,7 @@ from .mydialog import MyDialog
 from .getlinks import getLinks
 from .getbrowsers import getBrowsers
 import ui
+from scriptHandler import script
 from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
@@ -45,6 +47,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except :
 				pass
 
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _("Display Open Link With dialog with extracted links.")
+	)
 	def script_opendialog(self, gesture):
 		global DIALOG
 		if DIALOG:
@@ -56,8 +62,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				browsers= getBrowsers()
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
-	# Translators: Message to be displayed in input help mode.
-	script_opendialog.__doc__= _("Display Open Link With dialog with extracted links.")
 
 #default configuration of settings dialog or panel for the addon
 configspec={

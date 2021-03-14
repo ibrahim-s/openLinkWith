@@ -1,7 +1,7 @@
 # Open Link With #
 
 Authors: Ibrahim Hamadeh, Belala Toufik  
-NVDA compatibility: 2017.3 to 2019.3  
+NVDA compatibility: 2018.3 to 2021.1  
 Compatibility with python3: Yes  
 Download [development version][1]  
 
@@ -36,4 +36,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.2-dev/openLinkWith-2.2-dev.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.3-dev/openLinkWith-2.3-dev.nvda-addon

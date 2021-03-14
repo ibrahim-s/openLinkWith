@@ -1,9 +1,9 @@
 # Open Link With #
 
 المطوِّر: Ibrahim Hamadeh, Belala Toufik  
-التوافقية مع إصدارات NVDA: 2017.3 to 2019.2  
+التوافقية مع إصدارات NVDA: 2018.3 to 2021.1  
 التوافق مع بايثون3: نعم.  
-Download [development version 2.2](https://github.com/ibrahim-s/openLinkWith/releases/download/2.2-dev/openLinkWith-2.2-dev.nvda-addon)  
+Download [development version 2.3][1]  
 
 هذه الإضافة تقوم باستخلاص الروابط من النص المحدد  
 و إظهارها في قاءمة في محاورة  
@@ -36,3 +36,5 @@ Download [development version 2.2](https://github.com/ibrahim-s/openLinkWith/rel
 ## التغييرات في 1.0 ##
 
 *	الإصدار الأول.  
+
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.3-dev/openLinkWith-2.3-dev.nvda-addon
