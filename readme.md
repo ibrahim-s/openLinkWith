@@ -21,6 +21,11 @@ from openLinkWith category, in input gestures dialog, in NVDA preferences menu.
 *	Remember that you got the obtion to close the dialog, after activating a link  
 and you can adjust that from openLinkWith settings dialog in preferences menu.  
 
+## Changes for 2.3 ##
+
+*	Use latest addon template files  
+*	Update manifest.ini for minimum and last version tested.  
+
 ## Changes for 2.2 ##
 *	Ensures compatibility with python3.  
 
