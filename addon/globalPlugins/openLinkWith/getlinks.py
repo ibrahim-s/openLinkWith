@@ -14,6 +14,12 @@ def find_urls (text):
 	bad_chars = '\'\\.,[](){}:;"'
 	return [s.strip(bad_chars) for s in url_re.findall(text)]
 
+def getClipText() -> str:
+	try:
+		return api.getClipData()
+	except OSError:
+		pass
+
 def isSelectedText():
 	"""this function  specifies if a certain text is selected or not
 	and if it is, returns text selected.
@@ -35,12 +41,12 @@ def isSelectedText():
 def getLinks():
 	"""This function returns a list of links if present under selected text.
 	"""
-	if not isSelectedText():
-		# Translators: Displayed if there is no text selected.
-		ui.message(_("No text selected"))
+	if not(isSelectedText() or getClipText()):
+		# Translators: Display if no text is selected and there is no text in the clipboard.
+		ui.message(_("You have not selected text and there is no text in the clipboard."))
 		return
 	else:
-		text= isSelectedText()
+		text=str(getClipText()) +'\n'+ str(isSelectedText())
 		links=find_urls(text)
 		if links==[]:
 			# Translators: Displayed if there is no links in selected text.
