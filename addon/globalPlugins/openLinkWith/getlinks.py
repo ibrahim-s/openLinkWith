@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#this module is aimed to get the links under selected text
+#this module is aimed to get the links under selected text or in clipboard.
 
 import textInfos
 import re
@@ -24,7 +24,6 @@ def isSelectedText():
 	"""this function  specifies if a certain text is selected or not
 	and if it is, returns text selected.
 	"""
-
 	obj=api.getFocusObject()
 	treeInterceptor=obj.treeInterceptor
 	if hasattr(treeInterceptor,'TextInfo') and not treeInterceptor.passThrough:
@@ -38,19 +37,34 @@ def isSelectedText():
 	else:
 		return info.text
 
-def getLinks():
-	"""This function returns a list of links if present under selected text.
-	"""
-	if not(isSelectedText() or getClipText()):
-		# Translators: Display if no text is selected and there is no text in the clipboard.
-		ui.message(_("You have not selected text and there is no text in the clipboard."))
+def getLinksFromSelectedText():
+	"""This function returns a list of links if present under selected text."""
+	if not isSelectedText():
+		# Translators: Displayed if there is no text selected.
+		ui.message(_("No text selected"))
 		return
 	else:
-		text=str(getClipText()) +'\n'+ str(isSelectedText())
+		text= isSelectedText()
 		links=find_urls(text)
-		if links==[]:
+		if not links:
 			# Translators: Displayed if there is no links in selected text.
 			ui.message(_("no links in selected text"))
+			return
+		else:
+			return links
+
+def getLinksFromClipboard():
+	"""This function returns a list of links if present in clipboard text."""
+	text= getClipText()
+	if not text:
+		# Translators: Message displayed when there is no text in clipboard.
+		ui.message(_("No text in clipboard."))
+		return
+	else:
+		links=find_urls(text)
+		if not links:
+			# Translators: Message displayed when there is no links in clipboard text.
+			ui.message(_("No links in clipboard text."))
 			return
 		else:
 			return links

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#This addon iextracts urls from selected text, put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
+#This addon extracts urls from selected text or text in clipboard
+#put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
 #This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh.
 # See the file COPYING for more details.
 
@@ -8,7 +9,7 @@ import gui, wx
 from gui import guiHelper
 import config
 from .mydialog import MyDialog
-from .getlinks import getLinks
+from .getlinks import getLinksFromSelectedText, getLinksFromClipboard
 from .getbrowsers import getBrowsers
 import ui
 from scriptHandler import script
@@ -49,15 +50,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
-		description= _("Display Open Link With dialog with extracted links.")
+		description= _("Display Open Link With dialog with extracted links from selected text.")
 	)
-	def script_opendialog(self, gesture):
+	def script_displayLinksInSelectedText(self, gesture):
 		global DIALOG
 		if DIALOG:
 			# Translators: displayed if another instance of the dialog is present.
 			ui.message(_("another instance of the dialog is openned, close it please"))
 		else:
-			list_= getLinks()
+			list_= getLinksFromSelectedText()
+			if list_:
+				browsers= getBrowsers()
+				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
+				DIALOG.postInit()
+
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _("Display Open Link With dialog with extracted links from clipboard.")
+	)
+	def script_displayLinksInClipboardText(self, gesture):
+		global DIALOG
+		if DIALOG:
+			# Translators: displayed if another instance of the dialog is present.
+			ui.message(_("another instance of the dialog is openned, close it please"))
+		else:
+			list_= getLinksFromClipboard()
 			if list_:
 				browsers= getBrowsers()
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)

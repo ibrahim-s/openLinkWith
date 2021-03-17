@@ -1,16 +1,30 @@
-#This module is aimed to get several browsers if found in the registry and their path
+#getbrowsers.py
+# Copyright 2019 ibrahim hamadeh, released under GPLv2.0.
+# See the file COPYING for more details.
+#This module is aimed to get several browsers if found in the registry and their path.
 
 import os
 import sys
 
-#for compatability with python3
+# for compatibility with python3
 try:
 	import winreg as _winreg
 except ImportError:
 	import _winreg
 
 #these are the keys that we are going to look for in the registry
-exeLabels= {'firefox.exe': 'Firefox', 'chrome.exe': 'Google Chrome', 'iexplore.exe': 'Internet Explorer', 'opera.exe': 'Opera', 'seamonkey.exe': 'Seamonkey', 'wyzo.exe': 'Wyzo'}
+exeLabels= {
+	'firefox.exe': 'Firefox', 
+	'chrome.exe': 'Google Chrome', 
+	'iexplore.exe': 'Internet Explorer', 
+	'opera.exe': 'Opera', 
+	'seamonkey.exe': 'Seamonkey', 
+	'wyzo.exe': 'Wyzo', 
+	'waterfox.exe': 'Waterfox',
+	'msedge.exe': 'Edge Chromium',
+	'brave.exe': 'Brave'
+}
+
 def getKeyRegBrowsers(base_key, sub_key):
 	"""sub_key is one of the main keys in the registry, or defined constants in _winreg module
 	sub_key is the sub key in  the registry under which executable labels is found

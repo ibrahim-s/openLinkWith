@@ -24,11 +24,11 @@ addon_info = {
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description": _("""
-	Extract links if found in selected text, display them in a list in a dialog, giving you the option to open any link with various browsers found on computer.
+	Extract links if found in selected textor clipboard, display them in a list in a dialog, giving you the option to open any link with various browsers found on computer.
 	Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 	"""),
 	# version
-	"addon_version": "2.3-dev",
+	"addon_version": "2.4-dev",
 	# Author(s)
 	"addon_author": u"Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Belala Toufik<belaalatoufik@gmail.com>",
 	# URL for the add-on documentation support
