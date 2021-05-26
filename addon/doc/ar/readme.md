@@ -4,7 +4,7 @@
 المساهِمون: cary-rowen
 التوافقية مع إصدارات NVDA: 2018.3 to 2021.1  
 التوافق مع بايثون3: نعم.  
-Download [development version 2.4][1]  
+Download [Version 2.4][1]  
 
 هذه الإضافة تقوم باستخلاص الروابط إمّا مِن النص المحدد أو النص في الحافِظة.  
 و إظهارها في قاءمة في محاورة  
@@ -48,4 +48,4 @@ Download [development version 2.4][1]
 
 *	الإصدار الأول.  
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.4-dev/openLinkWith-2.4-dev.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.4/openLinkWith-2.4.nvda-addon

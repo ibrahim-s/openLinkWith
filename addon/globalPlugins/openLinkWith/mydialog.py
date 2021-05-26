@@ -3,7 +3,6 @@
 import wx
 import config
 import os 
-import winVersion
 import webbrowser 
 import subprocess 
 from .getbrowsers import getBrowsers
@@ -20,11 +19,6 @@ class MyDialog(wx.Dialog):
 		buttonSizer = wx.BoxSizer(wx.VERTICAL)
 		staticText = wx.StaticText(panel, -1, 'Open With')
 		buttonSizer.Add(staticText, 0, wx.EXPAND|wx.ALL, 10)
-		#if in windows10, add edge browser
-		if winVersion.winVersionText.startswith('10'):
-			self.edge= wx.Button(panel, -1, label= 'Microsoft Edge')
-			self.edge.Bind(wx.EVT_BUTTON, self.onEdge)
-			buttonSizer.Add(self.edge, 1, wx.ALL, 10)
 		#As for browsers taken from the registry, to dynamically  create each button and its function using lambda .
 		for browser,path in browsers:
 		#browsers is a list of tuples, each tuple consists of the browser name and it's path.
@@ -53,13 +47,6 @@ class MyDialog(wx.Dialog):
 	def checkCloseAfterActivatingLink(self):
 		if config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]== True:
 			wx.CallLater(4000, self.Destroy)
-
-	def onEdge(self, evt):
-		url= self.getUrl()
-		if url:
-			url= 'http://'+url if url.startswith('www') else url
-			os.startfile("microsoft-edge:{i}".format(i=url)) 
-			self.checkCloseAfterActivatingLink()
 
 	def onOpen(self, evt, exe_path):
 		url= self.getUrl()
