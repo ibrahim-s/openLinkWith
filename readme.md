@@ -2,9 +2,9 @@
 
 Authors: Ibrahim Hamadeh, Belala Toufik  
 Contributors: cary-rowen  
-NVDA compatibility: 2018.3 to 2021.1  
+NVDA compatibility: 2018.3 and beyond   
 Compatibility with python3: Yes  
-Download [Version 2.4][1]  
+Download [Development Version 2.5][1]  
 
 This addon is used to extract links either from selected text or from clipboard text  
 display them in a list in a dialog  
@@ -47,4 +47,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/2.4/openLinkWith-2.4.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.5-dev/openLinkWith-2.5-dev.nvda-addon

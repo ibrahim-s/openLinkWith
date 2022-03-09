@@ -6,18 +6,20 @@ import os
 import webbrowser 
 import subprocess 
 from .getbrowsers import getBrowsers
+import addonHandler
+addonHandler.initTranslation()
 
 class MyDialog(wx.Dialog):
 
 	def __init__(self, parent, links, browsers):
-		super(MyDialog, self).__init__(parent, title = 'Open Link With')
+		super(MyDialog, self).__init__(parent, title = _('Open Link With'))
 		self.links= links
 		panel = wx.Panel(self, -1)
 		self.listBox = wx.ListBox(panel, -1)
 		listBoxSizer =  wx.BoxSizer(wx.VERTICAL)
 		listBoxSizer.Add(self.listBox, 1, wx.ALL, 5)
 		buttonSizer = wx.BoxSizer(wx.VERTICAL)
-		staticText = wx.StaticText(panel, -1, 'Open With')
+		staticText = wx.StaticText(panel, -1, _('Open With'))
 		buttonSizer.Add(staticText, 0, wx.EXPAND|wx.ALL, 10)
 		#As for browsers taken from the registry, to dynamically  create each button and its function using lambda .
 		for browser,path in browsers:

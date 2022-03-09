@@ -20,6 +20,7 @@ addonHandler.initTranslation()
 DIALOG= None
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	# Translators: Category of addon in input gestures dialog.
 	scriptCategory = _("Open Link With")
 
 	def __init__(self, *args, **kwargs):
@@ -31,7 +32,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.prefmenu= gui.mainFrame.sysTrayIcon.preferencesMenu
 			self.addonmenu= self.prefmenu.Append(wx.ID_ANY,
 			# Translators: label of openLinkWith setting menu in preferences menu
-			_("&OpenLinkWith..."),
+			_("OpenLinkWith..."),
 			"Opens setting dialog"
 			)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onOpenSettingDialog, self.addonmenu)
@@ -95,7 +96,7 @@ class OpenLinkWithSettings(parentClass):
 	def makeSettings(self, sizer):
 		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=sizer)
 		# Translators: label of the check box 
-		self.closeDialogCheckBox=wx.CheckBox(self,label=_("&Close openLinkWith Dialog after activating a link"))
+		self.closeDialogCheckBox=wx.CheckBox(self,label=_("Close openLinkWith Dialog after activating a link"))
 		self.closeDialogCheckBox.SetValue(config.conf["openLinkWith"]["closeDialogAfterActivatingALink"])
 		settingsSizerHelper.addItem(self.closeDialogCheckBox)
 
