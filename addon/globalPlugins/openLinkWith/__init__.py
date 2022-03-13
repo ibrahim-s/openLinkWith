@@ -8,17 +8,25 @@ import globalPluginHandler
 import gui, wx
 from gui import guiHelper
 import config
+import globalVars
+import ui
 from .mydialog import MyDialog
 from .getlinks import getLinksFromSelectedText, getLinksFromClipboard
 from .getbrowsers import getBrowsers
-import ui
 from scriptHandler import script
 from logHandler import log
+
 import addonHandler
 addonHandler.initTranslation()
 
 DIALOG= None
 
+def disableInSecureMode(decoratedCls):
+	if globalVars.appArgs.secure:
+		return globalPluginHandler.GlobalPlugin
+	return decoratedCls
+
+@disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Category of addon in input gestures dialog.
 	scriptCategory = _("Open Link With")
