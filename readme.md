@@ -3,7 +3,7 @@
 Authors: Ibrahim Hamadeh, Belala Toufik  
 Contributors: cary-rowen  
 NVDA compatibility: 2018.3 and beyond   
-Download [Version 2.5][1]  
+Download [Version 2.6][1]  
 
 This addon is used to extract links either from selected text or from clipboard text  
 display them in a list in a dialog  
@@ -23,6 +23,10 @@ and give you the opportunity to open them with several browsers if found on your
 *	otherwise, tab to the browser you want to open it with, and hit enter.  
 *	Remember that you got the obtion to close the dialog, after activating a link  
 and you can adjust that from openLinkWith settings dialog in preferences menu.  
+
+## Changes for 2.6 ##
+
+*	Add Turkish translation for the addon.
 
 ## Changes for 2.5 ##
 
@@ -51,4 +55,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.5/openLinkWith-2.5.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.6/openLinkWith-2.6.nvda-addon

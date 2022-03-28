@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'Bağlantıyı Şununla Aç 2.5'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2022-03-24 21:58+0300\n"
+"PO-Revision-Date: 2022-03-24 23:09+0300\n"
+"Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
+"Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../../globalPlugins\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: openLinkWith/__init__.py:32 openLinkWith/mydialog.py:15
+msgid "Open Link With"
+msgstr "Bağlantıyı Şununla Aç"
+
+#: openLinkWith/__init__.py:43
+#, fuzzy
+#| msgid "&OpenLinkWith..."
+msgid "OpenLinkWith..."
+msgstr "&BağlantıyıŞununlaAç..."
+
+#: openLinkWith/__init__.py:62
+msgid "Display Open Link With dialog with extracted links from selected text."
+msgstr ""
+"Seçili metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç "
+"iletişim kutusunu görüntüler."
+
+#: openLinkWith/__init__.py:68 openLinkWith/__init__.py:84
+msgid "another instance of the dialog is openned, close it please"
+msgstr "iletişim kutusunun başka bir örneği zaten açık, lütfen kapatın."
+
+#: openLinkWith/__init__.py:78
+msgid "Display Open Link With dialog with extracted links from clipboard."
+msgstr ""
+"Panodaki metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç "
+"iletişim kutusunu görüntüler."
+
+#: openLinkWith/__init__.py:102
+msgid "Open link with"
+msgstr "Bağlantıyı şununla aç:"
+
+#: openLinkWith/__init__.py:107
+#| msgid "&Close openLinkWith Dialog after activating a link"
+msgid "Close openLinkWith Dialog after activating a link"
+msgstr ""
+"Bir bağlantıyı etkinleştirdikten sonra BağlantıyıŞununlaAç iletişim "
+"kutusunu kapat"
+
+#: openLinkWith/getlinks.py:44
+msgid "No text selected"
+msgstr "Seçili Metin Yok"
+
+#: openLinkWith/getlinks.py:51
+msgid "no links in selected text"
+msgstr "seçili metinde bağlantı yok"
+
+#: openLinkWith/getlinks.py:61
+msgid "No text in clipboard."
+msgstr "Panoda metin yok."
+
+#: openLinkWith/getlinks.py:67
+msgid "No links in clipboard text."
+msgstr "Panodaki metinde bağlantı yok."
+
+#: openLinkWith/mydialog.py:22
+#, fuzzy
+#| msgid "Open Link With"
+msgid "Open With"
+msgstr "Bağlantıyı Şununla Aç"
+
+#~ msgid ""
+#~ "\n"
+#~ "\tExtract links if found in selected textor clipboard, display them in a "
+#~ "list in a dialog, giving you the option to open any link with various "
+#~ "browsers found on computer.\n"
+#~ "\tPress the command you assotiated with the addon via input gestures, to "
+#~ "display OpenLinkWith dialog.\n"
+#~ "\t"
+#~ msgstr ""
+#~ "\n"
+#~ "\tExtract links if found in selected textor clipboard, display them in a "
+#~ "list in a dialog, giving you the option to open any link with various "
+#~ "browsers found on computer.\n"
+#~ "\tPress the command you assotiated with the addon via input gestures, to "
+#~ "display OpenLinkWith dialog.\n"
+#~ "\t"
+
+#~ msgid "Open link with settings"
+#~ msgstr "إعدادات openLinkWith"
