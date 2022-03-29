@@ -4,7 +4,7 @@
 #This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh.
 # See the file COPYING for more details.
 
-import globalPluginHandler, api
+import globalPluginHandler
 import gui, wx
 from gui import guiHelper
 import config
