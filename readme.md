@@ -31,6 +31,7 @@ and you can adjust that from openLinkWith settings dialog in preferences menu.
 *	Add Turkish translation for the addon.
 *	Now, You can extract the links from the text in last spoken.
 *	You can use the options in the settings panel to decide whether to open it directly with the default browser when there is only one link
+*	Remove duplicates after extracting URL
 
 ## Changes for 2.5 ##
 
