@@ -5,6 +5,7 @@
 # See the file COPYING for more details.
 
 import globalPluginHandler
+import webbrowser
 import gui, wx
 from gui import guiHelper
 import config
@@ -72,6 +73,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			list_= getLinksFromLastSpoken()
 			if list_:
+				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+					webbrowser.open(list_[0])
+					return
 				browsers= getBrowsers()
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
@@ -88,6 +92,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			list_= getLinksFromSelectedText()
 			if list_:
+				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+					webbrowser.open(list_[0])
+					return
 				browsers= getBrowsers()
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
@@ -104,13 +111,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			list_= getLinksFromClipboard()
 			if list_:
+				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+					webbrowser.open(list_[0])
+					return
 				browsers= getBrowsers()
 				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
 				DIALOG.postInit()
 
 #default configuration of settings dialog or panel for the addon
 configspec={
-	"closeDialogAfterActivatingALink": "boolean(default= False)"
+	"closeDialogAfterActivatingALink": "boolean(default= False)",
+	"openDirectlyIfThereIsOnlyOneLink": "boolean(default= True)"
 }
 config.conf.spec["openLinkWith"]= configspec
 
@@ -127,13 +138,20 @@ class OpenLinkWithSettings(parentClass):
 		self.closeDialogCheckBox.SetValue(config.conf["openLinkWith"]["closeDialogAfterActivatingALink"])
 		settingsSizerHelper.addItem(self.closeDialogCheckBox)
 
+		# Translators: label of the check box 
+		self.openDirectlyCheckBox=wx.CheckBox(self,label=_("Open directly if there is only one link"))
+		self.openDirectlyCheckBox.SetValue(config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"])
+		settingsSizerHelper.addItem(self.openDirectlyCheckBox)
+
 	if hasattr(parentClass, 'onSave'):
 		def onSave(self):
 			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
+			config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]= self.openDirectlyCheckBox.IsChecked() 
 
 	else:
 		def onOk(self, evt):
 			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
+			config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]= self.openDirectlyCheckBox.IsChecked() 
 			super(OpenLinkWithSettings, self).onOk(evt)
 
 		def postInit(self):
