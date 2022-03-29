@@ -12,7 +12,9 @@ def find_urls (text):
 	"""
 	url_re = re.compile(r"(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
 	bad_chars = '\'\\.,[](){}:;"'
-	return [s.strip(bad_chars) for s in url_re.findall(text)]
+	links= [s.strip(bad_chars) for s in url_re.findall(text)]
+	# remove duplicates
+	return list(dict.fromkeys(links))
 
 def getClipText() -> str:
 	try:
