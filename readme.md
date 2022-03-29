@@ -22,13 +22,15 @@ and give you the opportunity to open them with several browsers if found on your
 *	if present, links will be displayed in a listbox in a dialog  
 *	Choose the link, and press enter if you want to open it with the default browser.  
 *	otherwise, tab to the browser you want to open it with, and hit enter.  
+*	If there is only one link, use the default browser to open it directly, of course this behavior is controlled by options in the settings panel.
 *	Remember that you got the obtion to close the dialog, after activating a link  
 and you can adjust that from openLinkWith settings dialog in preferences menu.  
 
 ## Changes for 2.6 ##
 
 *	Add Turkish translation for the addon.
-*	now, You can extract the links from the text in last spoken.
+*	Now, You can extract the links from the text in last spoken.
+*	You can use the options in the settings panel to decide whether to open it directly with the default browser when there is only one link
 
 ## Changes for 2.5 ##
 
