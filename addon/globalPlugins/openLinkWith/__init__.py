@@ -12,8 +12,7 @@ import config
 import globalVars
 import ui
 from .mydialog import MyDialog
-from .getLastSpoken import LastSpoken
-from .getlinks import getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
+from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
 from scriptHandler import script
 from logHandler import log
