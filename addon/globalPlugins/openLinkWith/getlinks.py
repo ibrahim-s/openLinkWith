@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #this module is aimed to get the links under selected text or in clipboard.
-
+from .getLastSpoken import LastSpoken
 import textInfos
 import re
 import api, ui
@@ -65,6 +65,22 @@ def getLinksFromClipboard():
 		if not links:
 			# Translators: Message displayed when there is no links in clipboard text.
 			ui.message(_("No links in clipboard text."))
+			return
+		else:
+			return links
+
+def getLinksFromLastSpoken():
+	"""This function returns a list of links if present in last spoken text."""
+	text= LastSpoken.lastSpokenText
+	if not text:
+		# Translators: Message displayed when there is no text in LastSpoken
+		ui.message(_("No text."))
+		return
+	else:
+		links=find_urls(text)
+		if not links:
+			# Translators: Message displayed when there is no links in last spoken text.
+			ui.message(_("No links in last spoken text."))
 			return
 		else:
 			return links

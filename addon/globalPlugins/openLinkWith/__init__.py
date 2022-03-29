@@ -4,14 +4,15 @@
 #This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh.
 # See the file COPYING for more details.
 
-import globalPluginHandler
+import globalPluginHandler, api
 import gui, wx
 from gui import guiHelper
 import config
 import globalVars
 import ui
 from .mydialog import MyDialog
-from .getlinks import getLinksFromSelectedText, getLinksFromClipboard
+from .getLastSpoken import LastSpoken
+from .getlinks import getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
 from scriptHandler import script
 from logHandler import log
@@ -33,6 +34,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
+		LastSpoken._patch()
 
 		if hasattr(gui, 'SettingsPanel'):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithSettings)
@@ -49,6 +51,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame._popupSettingsDialog(OpenLinkWithSettings)
 
 	def terminate(self):
+		LastSpoken.terminate()
 		if hasattr(gui, 'SettingsPanel'):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(OpenLinkWithSettings)
 		else:
@@ -56,6 +59,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.prefmenu.RemoveItem(self.addonmenu)
 			except :
 				pass
+
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _("Display Open Link With dialog with extracted links from last spoken text.")
+	)
+	def script_displayLinksInLastSpokenText(self, gesture):
+		global DIALOG
+		if DIALOG:
+			# Translators: displayed if another instance of the dialog is present.
+			ui.message(_("another instance of the dialog is openned, close it please"))
+		else:
+			list_= getLinksFromLastSpoken()
+			if list_:
+				browsers= getBrowsers()
+				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
+				DIALOG.postInit()
 
 	@script(
 		# Translators: Message to be displayed in input help mode.

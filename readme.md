@@ -5,7 +5,7 @@ Contributors: cary-rowen
 NVDA compatibility: 2018.3 and beyond   
 Download [Version 2.6][1]  
 
-This addon is used to extract links either from selected text or from clipboard text  
+This addon is used to extract links either from selected text or from clipboard text or from last spoken text
 display them in a list in a dialog  
 and give you the opportunity to open them with several browsers if found on your pc.
 
@@ -13,10 +13,11 @@ and give you the opportunity to open them with several browsers if found on your
 
 *	First you have to assign a gestures for the addon through input gestures dialog.  
 *	You can do that going to NVDA Menu/Preferences/Input Gestures/Openlink with category.  
-*	There are two unassigned gestures there.  
+*	There are three unassigned gestures there.  
 	1.	A gesture to display links under selected text.  
 	2.	A gesture to display link in clipboard text.  
-*	Now you have the option to get and display links, either from selected text or from text in clipboard.  
+	3.	A gesture to display link in last spoken text.  
+*	Now you have the option to get and display links, either from selected text or from text in clipboard or from text in last spoken.  
 *	then press the shortcut of the addon, as you have chosen it  
 *	if present, links will be displayed in a listbox in a dialog  
 *	Choose the link, and press enter if you want to open it with the default browser.  
@@ -27,6 +28,7 @@ and you can adjust that from openLinkWith settings dialog in preferences menu.
 ## Changes for 2.6 ##
 
 *	Add Turkish translation for the addon.
+*	now, You can extract the links from the text in last spoken.
 
 ## Changes for 2.5 ##
 
