@@ -1,18 +1,52 @@
 # -*- coding: utf-8 -*-
 #this module is aimed to get the links under selected text or in clipboard.
-
 import textInfos
 import re
 import api, ui
 import addonHandler
+import speech
+import speechViewer
+import versionInfo
+
 addonHandler.initTranslation()
+
+class LastSpoken:
+	''' Helper class that contains the code, to get last spoken text.'''
+	BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
+	lastSpokenText=None
+
+	@classmethod
+	def _patch(cls):
+		if cls.BUILD_YEAR >= 2021:
+			cls.oldSpeak = speech.speech.speak
+			speech.speech.speak = cls.mySpeak
+		else:
+			cls.oldSpeak = speech.speak
+			speech.speak = cls.mySpeak
+
+	@classmethod
+	def terminate(cls):
+		if cls.BUILD_YEAR >= 2021:
+			speech.speech.speak = cls.oldSpeak
+		else:
+			speech.speak = cls.oldSpeak
+
+	@classmethod
+	def mySpeak(cls, sequence, *args, **kwargs):
+		cls.oldSpeak(sequence, *args, **kwargs)
+		text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
+		if text.strip():
+			cls.lastSpokenText=text.strip()
+
 
 def find_urls (text):
 	"""Find URLs in a text string.
 	"""
 	url_re = re.compile(r"(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
 	bad_chars = '\'\\.,[](){}:;"'
-	return [s.strip(bad_chars) for s in url_re.findall(text)]
+	links= [s.strip(bad_chars) for s in url_re.findall(text)]
+	# remove duplicates
+	return list(dict.fromkeys(links))
 
 def getClipText() -> str:
 	try:
@@ -65,6 +99,22 @@ def getLinksFromClipboard():
 		if not links:
 			# Translators: Message displayed when there is no links in clipboard text.
 			ui.message(_("No links in clipboard text."))
+			return
+		else:
+			return links
+
+def getLinksFromLastSpoken():
+	"""This function returns a list of links if present in last spoken text."""
+	text= LastSpoken.lastSpokenText
+	if not text:
+		# Translators: Message displayed when there is no text in LastSpoken
+		ui.message(_("No text."))
+		return
+	else:
+		links=find_urls(text)
+		if not links:
+			# Translators: Message displayed when there is no links in last spoken text.
+			ui.message(_("No links in last spoken text."))
 			return
 		else:
 			return links
