@@ -44,7 +44,7 @@ class LastSpoken:
 def find_urls (text):
 	"""Find URLs in a text string.
 	"""
-	url_re = re.compile(r"(?:\w+://|www\.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
+	url_re = re.compile(r'(?:(?:https?|ftp|nvdaremote)://)(?:[A-Za-z0-9]+\.)+\w+(?:[A-Za-z0-9+_|/-]+\.?)*\??[A-Za-z0-9+_|/&@#%=~-]*')
 	bad_chars = '\'\\.,[](){}:;"'
 	links= [s.strip(bad_chars) for s in url_re.findall(text)]
 	# remove duplicates
