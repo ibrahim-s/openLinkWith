@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-#this module is aimed to get the links under selected text or in clipboard.
+#this module is aimed to get the links under selected text, last spoken or in clipboard.
+# Code to get last spoken text is borrowed from speechHistory addon, thanks to James Scholes, Tyler Spivey and all contributors to that addon.
+
 import textInfos
 import re
 import api, ui
-import addonHandler
 import speech
 import speechViewer
 import versionInfo
 
+import addonHandler
 addonHandler.initTranslation()
 
 class LastSpoken:

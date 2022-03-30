@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-#This addon extracts urls from selected text or text in clipboard
+#This addon extracts urls from selected text, last spoken or text in clipboard
 #put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
-#This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh.
+#This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh, Cary Rowen.
 # See the file COPYING for more details.
 
 import globalPluginHandler
@@ -62,25 +62,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
-		description= _("Display Open Link With dialog with extracted links from last spoken text.")
-	)
-	def script_displayLinksInLastSpokenText(self, gesture):
-		global DIALOG
-		if DIALOG:
-			# Translators: displayed if another instance of the dialog is present.
-			ui.message(_("another instance of the dialog is openned, close it please"))
-		else:
-			list_= getLinksFromLastSpoken()
-			if list_:
-				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-					webbrowser.open(list_[0])
-					return
-				browsers= getBrowsers()
-				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-				DIALOG.postInit()
-
-	@script(
-		# Translators: Message to be displayed in input help mode.
 		description= _("Display Open Link With dialog with extracted links from selected text.")
 	)
 	def script_displayLinksInSelectedText(self, gesture):
@@ -88,15 +69,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if DIALOG:
 			# Translators: displayed if another instance of the dialog is present.
 			ui.message(_("another instance of the dialog is openned, close it please"))
-		else:
-			list_= getLinksFromSelectedText()
-			if list_:
-				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-					webbrowser.open(list_[0])
-					return
-				browsers= getBrowsers()
-				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-				DIALOG.postInit()
+			return
+		list_= getLinksFromSelectedText()
+		if list_:
+			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+				webbrowser.open(list_[0])
+				return
+			browsers= getBrowsers()
+			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
+			DIALOG.postInit()
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
@@ -107,20 +88,39 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if DIALOG:
 			# Translators: displayed if another instance of the dialog is present.
 			ui.message(_("another instance of the dialog is openned, close it please"))
-		else:
-			list_= getLinksFromClipboard()
-			if list_:
-				if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-					webbrowser.open(list_[0])
-					return
-				browsers= getBrowsers()
-				DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-				DIALOG.postInit()
+			return
+		list_= getLinksFromClipboard()
+		if list_:
+			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+				webbrowser.open(list_[0])
+				return
+			browsers= getBrowsers()
+			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
+			DIALOG.postInit()
+
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _("Display Open Link With dialog with extracted links from last spoken text.")
+	)
+	def script_displayLinksInLastSpokenText(self, gesture):
+		global DIALOG
+		if DIALOG:
+			# Translators: displayed if another instance of the dialog is present.
+			ui.message(_("another instance of the dialog is openned, close it please"))
+			return
+		list_= getLinksFromLastSpoken()
+		if list_:
+			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+				webbrowser.open(list_[0])
+				return
+			browsers= getBrowsers()
+			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
+			DIALOG.postInit()
 
 #default configuration of settings dialog or panel for the addon
 configspec={
 	"closeDialogAfterActivatingALink": "boolean(default= False)",
-	"openDirectlyIfThereIsOnlyOneLink": "boolean(default= True)"
+	"openDirectlyIfThereIsOnlyOneLink": "boolean(default= False)"
 }
 config.conf.spec["openLinkWith"]= configspec
 
@@ -138,7 +138,7 @@ class OpenLinkWithSettings(parentClass):
 		settingsSizerHelper.addItem(self.closeDialogCheckBox)
 
 		# Translators: label of the check box 
-		self.openDirectlyCheckBox=wx.CheckBox(self,label=_("Open directly if there is only one link"))
+		self.openDirectlyCheckBox=wx.CheckBox(self,label=_("If only one link, open directly with default browser"))
 		self.openDirectlyCheckBox.SetValue(config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"])
 		settingsSizerHelper.addItem(self.openDirectlyCheckBox)
 
