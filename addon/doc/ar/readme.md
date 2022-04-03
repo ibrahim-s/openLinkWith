@@ -2,7 +2,7 @@
 
 المطوِّرون: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 التوافقية مع إصدارات NVDA: 2018.3 فما فوق  
-تحميل الإضافة [Development Version 2.7][1]  
+تحميل الإضافة Version 2.7][1]  
 
 هذه الإضافة تقوم باستخلاص الروابط إمّا مِن النص المحدد أو النص في الحافِظةأو آخِر نص منطوق.  
 و إظهارها في قاءمة في محاورة  
@@ -63,4 +63,4 @@
 
 *	الإصدار الأول.  
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.7-dev/openLinkWith-2.7-dev.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.7/openLinkWith-2.7.nvda-addon

@@ -3,7 +3,7 @@
 Yazarlar: İbrahim Hamadeh, Belala Toufik.  
 Katkıda bulunanlar: cary-rowen.  
 NVDA uyumluluğu: 2018.3 ve sonrası.  
-[Sürüm 2.5'i İndir][1]  
+[Sürüm 2.7'i İndir][1]  
 
 Bu eklenti, seçili metinden veya panoya kopyalanmış metinden bağlantıları ayıklamak için kullanılır.  
 Bulunan bağlantıları, açtığı iletişim kutusunda bir listede gösterir ve bilgisayarımızda birden fazla tarayıcı varsa istediğimiz bir tarayıcı ile açabilmemize imkan verir.  
@@ -48,4 +48,4 @@ Bulunan bağlantıları, açtığı iletişim kutusunda bir listede gösterir ve
 
 *	İlk Sürüm.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.5/openLinkWith-2.5.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.7/openLinkWith-2.7.nvda-addon
