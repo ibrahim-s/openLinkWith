@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'openLinkWith' '2.6'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2022-04-03 09:43+0800\n"
+"PO-Revision-Date: 2022-04-03 09:44+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Translators: Category of addon in input gestures dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:33
+#: addon\globalPlugins\OpenLinkWith\mydialog.py:15 buildVars.py:23
+msgid "Open Link With"
+msgstr "打开链接"
+
+#. Translators: label of openLinkWith setting menu in preferences menu
+#: addon\globalPlugins\OpenLinkWith\__init__.py:45
+msgid "OpenLinkWith..."
+msgstr "打开链接"
+
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:65
+msgid "Display Open Link With dialog with extracted links from selected text."
+msgstr "从选中文本中提取链接"
+
+#. Translators: displayed if another instance of the dialog is present.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:71
+#: addon\globalPlugins\OpenLinkWith\__init__.py:90
+#: addon\globalPlugins\OpenLinkWith\__init__.py:109
+msgid "another instance of the dialog is openned, close it please"
+msgstr "另一个对话框已打开，请先关闭。"
+
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:84
+msgid "Display Open Link With dialog with extracted links from clipboard."
+msgstr "从剪贴板文本中提取链接"
+
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:103
+msgid ""
+"Display Open Link With dialog with extracted links from last spoken text."
+msgstr "从最后一次朗读的文本中提取链接"
+
+#. Translators: title of the dialog
+#: addon\globalPlugins\OpenLinkWith\__init__.py:131
+msgid "Open link with"
+msgstr "打开链接"
+
+#. Translators: label of the check box
+#: addon\globalPlugins\OpenLinkWith\__init__.py:136
+msgid "Close openLinkWith Dialog after activating a link"
+msgstr "打开链接后关闭对话框"
+
+#. Translators: label of the check box
+#: addon\globalPlugins\OpenLinkWith\__init__.py:141
+msgid "If only one link, open directly with default browser"
+msgstr "若只有一个链接则直接用默认浏览器打开"
+
+#. Translators: Displayed if there is no text selected.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:80
+msgid "No text selected"
+msgstr "未选择文本"
+
+#. Translators: Displayed if there is no links in selected text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:87
+msgid "no links in selected text"
+msgstr "所选文本中没有链接"
+
+#. Translators: Message displayed when there is no text in clipboard.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:97
+msgid "No text in clipboard."
+msgstr "剪贴板中没有文本"
+
+#. Translators: Message displayed when there is no links in clipboard text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:103
+msgid "No links in clipboard text."
+msgstr "剪贴板文本中没有链接"
+
+#. Translators: Message displayed when there is no text in LastSpoken
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:113
+msgid "No text."
+msgstr "没有文本"
+
+#. Translators: Message displayed when there is no links in last spoken text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:119
+msgid "No links in last spoken text."
+msgstr "最后一次朗读的文本中没有链接"
+
+#: addon\globalPlugins\OpenLinkWith\mydialog.py:22
+msgid "Open With"
+msgstr "打开链接"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:26
+msgid ""
+"\n"
+"\tExtract links if found in selected, last spoken or clipboard text, display "
+"them in a list in a dialog, giving you the option to open any link with "
+"various browsers found on computer.\n"
+"\tPress the command you assotiated with the addon via input gestures, to "
+"display OpenLinkWith dialog.\n"
+"\t"
+msgstr ""
+"\n"
+"\t该插件可以从选中的文本、剪贴板中的文本或最后一次朗读的文本中提取所包含的链"
+"接，并显示在一个弹出对话框的列表内，\n"
+"\t您可以选择使用已安装的浏览器打开列表中的链接。\n"
+"\t"
+
+#~ msgid "Open directly if there is only one link"
+#~ msgstr "若只有一个链接则使用默认浏览器打开"
