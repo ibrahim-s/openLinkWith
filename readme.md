@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2018.3 and beyond   
-Download Version 2.7][1]  
+Download [Version 2.7][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  

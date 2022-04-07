@@ -3,7 +3,7 @@
 Yazarlar: İbrahim Hamadeh, Belala Toufik.  
 Katkıda bulunanlar: cary-rowen.  
 NVDA uyumluluğu: 2018.3 ve sonrası.  
-[Sürüm 2.7'i İndir][1]  
+[Sürüm 2.7'yi İndir][1]  
 
 Bu eklenti, seçili metinden veya panoya kopyalanmış metinden bağlantıları ayıklamak için kullanılır.  
 Bulunan bağlantıları, açtığı iletişim kutusunda bir listede gösterir ve bilgisayarımızda birden fazla tarayıcı varsa istediğimiz bir tarayıcı ile açabilmemize imkan verir.  
@@ -12,15 +12,26 @@ Bulunan bağlantıları, açtığı iletişim kutusunda bir listede gösterir ve
 
 *	İlk önce, girdi hareketleri iletişim kutusu aracılığıyla eklenti için bir kısayol atamamız gerekir.
 *	Bunun için, NVDA Menüsü/Tercihler/Girdi Hareketleri içerisinde Bağlantıyı şununla aç kategorisine gitmek gerekir.
-*	Orada atanmamış iki hareket bulunur.
+*	Orada atanmamış üç hareket bulunur.
 	1.	Seçili metnin içinde ki bağlantıları görüntülemek için bir hareket.
 	2.	Pano metnindeki bağlantıları görüntülemek için bir hareket.
+	3.	Son söylenen metindeki bağlantıları göster.
 *	Artık, seçili metinden veya panodaki metinden bağlantı alma ve görüntüleme seçeneğimiz var.
 *	Bağlantıları almak istediğimizde, belirlediğimiz kısayol tuşlarına basmamız gerekir.
 *	varsa, bağlantılar bir iletişim kutusundaki liste alaında görüntülenecektir.
 *	Bağlantıyı seçtikten sonra varsayılan tarayıcıyla açmak istiyorsak enter tuşuna basmamız yeterli olur.
 *	aksi takdirde, açmak istediğiniz tarayıcıya gidin ve enter tuşuna basın.
 *	Bir bağlantıyı etkinleştirdikten sonra diyaloğu kapatma seçeneğiniz olduğunu unutmayın. Bunu tercihler menüsündeki openLinkWith ayarları iletişim kutusundan ayarlayabilirsiniz.
+
+## 2.7 için değişiklikler ##
+
+*	Artık, son konuşulan metinden bağlantıları çıkarabilirsiniz.
+*	Metinde yalnızca bir bağlantı olduğunda, doğrudan varsayılan tarayıcıyla açıp açmamaya karar vermek için ayarlar panelindeki seçenekleri kullanabilirsiniz.
+*	Metinde bulunan bağlantılar ayıklanınca, birden fazla aynı bağlantı varsa fazlasıtemizlenir.
+
+## 2.6 için değişiklikler ##
+
+*	Eklenti için Türkçe çeviri eklendi.
 
 ## 2.5 için değişiklikler ##
 
