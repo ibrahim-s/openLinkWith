@@ -3,7 +3,7 @@
 作者： Ibrahim Hamadeh, Cary-Rowen, Belala Toufik  
 NVDA 兼容性：2018.3 及更高版本
 
-下载 [2.7版][1]
+下载 [2.8版][1]
 
 
 该插件可以从选中的文本、剪贴板中的文本或最后一次朗读的文本中提取所包含的链接，并显示在一个弹出对话框的列表内，您可以选择使用已安装的浏览器打开列表中的链接。
@@ -22,6 +22,10 @@ NVDA 兼容性：2018.3 及更高版本
 *	或者，您可以按 Tab 键选择用于打开链接的浏览器并按回车键。
 *	如果只有一个链接可以直接使用默认浏览器打开，当然这是一个可选项，在设置面板中可以开启 / 关闭。
 *	您还可以在设置面板中设置是否在打开链接后关闭链接对话框。
+
+## 2.7 的变化 ##
+*	更新了插件模板。
+*	将最后测试的 NVDA 版本更新为 2023.1 以兼容最新的 API 更改。
 
 
 ## 2.7 的变化 ##
@@ -55,4 +59,4 @@ NVDA 兼容性：2018.3 及更高版本
 ## 1.0 的变化 ##
 *	初始版本
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.7/openLinkWith-2.7.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.8/openLinkWith-2.8.nvda-addon
