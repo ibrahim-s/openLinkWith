@@ -3,6 +3,7 @@
 #put them in a list box in a dialog, and give you the opportunity to open them with various browsers on computer.
 #This addon is under GNU General Public License gpl2.0, Copyright (C) ibrahim hamadeh, Cary Rowen.
 # See the file COPYING for more details.
+# Hyper link menu feature, was inspired by Luke's contribution to access the link destination in NVDA core.
 
 import globalPluginHandler
 import webbrowser

@@ -24,6 +24,16 @@ and give you the opportunity to open them with several browsers if found on your
 *	If there is only one link, you can choose to be opened  directly with the default browser. this obtion can be adjusted in the settings panel.
 *	In the settings panel also, remember that you got the obtion to close the dialog, after activating a link.  
 
+## Hyper link menu
+
+Suppose you are in one browser and found a link, you like to open it with another browser.
+
+or you are reading a message and in it a link, you wish to open it with a specific browser(not the default), what to do in this case?
+
+Here comes the hyper link menu feature, press the gesture of hyper link menu(Alt+/), a menu will pop up giving you the option to open the link with several browsers on your machine.
+
+Alt+/ is the default gesture, but you can always change it through NVDA menu/Preferences/Input gestures/Open link with.
+
 ## Changes for 2.8 ##
 *	Updated add-on template.
 *	Update last tested version to 2023.1, to comply with latest addon api.
