@@ -190,7 +190,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
-		description= _("If standing on a link, display a menu "
+		description= _("Display a menu, if standing on a hyper link "
 		"to give you the option to open the link with other browsers on  your machine."
 		),
 		gesture= "kb:alt+/"

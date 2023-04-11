@@ -28,11 +28,11 @@ addon_info = {
 	Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 	"""),
 	# version
-	"addon_version": "2.8",
+	"addon_version": "2.9-dev",
 	# Author(s)
 	"addon_author": "Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Cary Rowen <manchen_0528@outlook.com>, Belala Toufik<belaalatoufik@gmail.com>",
 	# URL for the add-on documentation support
-	"addon_url": "https://github.com/ibrahim-s/openLinkWith.git",
+	"addon_url": "https://github.com/ibrahim-s/openLinkWith/blob/master/readme.md",
 	# URL for the add-on repository where the source code can be found
 	"addon_sourceURL": "https://github.com/ibrahim-s/openLinkWith",
 	# Documentation file name
