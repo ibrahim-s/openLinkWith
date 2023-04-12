@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2018.3 and beyond   
-Download [Version 2.8][1]  
+Download [Development Version 2.9][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -23,6 +23,25 @@ and give you the opportunity to open them with several browsers if found on your
 *	otherwise, tab to the browser you want to open it with, and hit enter.  
 *	If there is only one link, you can choose to be opened  directly with the default browser. this obtion can be adjusted in the settings panel.
 *	In the settings panel also, remember that you got the obtion to close the dialog, after activating a link.  
+
+## Hyper link menu
+
+Suppose you are in one browser and found a link, you like to open it with another browser.
+
+or you are reading a message and in it a link, you wish to open it with a specific browser(not the default), what to do in this case?
+
+Here comes the beautiful hyper link menu feature, press the gesture of hyper link menu(Alt+/), a menu will pop up giving you the option to open the link with several browsers on your machine.
+
+Lot of times, while reading a message encounter a link to github, the browser I am logged in with it in github is Chrome, while my default browser is Firefox, and I need to open the link with Chrome to react with the issue of the link. Hyper link menu can help me now to go to github with the browser I am already logged in with it, even if it is not the default one.
+
+Alt+/ is the default gesture, but you can always change it through NVDA menu/Preferences/Input gestures/Open link with.
+
+## Changes for 2.9 ##
+
+*	Add hyper link menu feature, to give you the option to open the link with other browsers.
+*	Stand on a link, and press the gesture Alt+/
+*	A menu will pop up, giving you the option to open the link with other browsers on your machine.
+*	You can press escape to dismiss the menu, or enter on any of the browser to open the link right with it.
 
 ## Changes for 2.8 ##
 *	Updated add-on template.
@@ -65,4 +84,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.8/openLinkWith-2.8.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.9-dev/openLinkWith-2.9-dev.nvda-addon

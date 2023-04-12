@@ -5,79 +5,144 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'openLinkWith' '2.5-dev'\n"
+"Project-Id-Version: 'openLinkWith' '2.9'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-06-05 08:49+0300\n"
-"PO-Revision-Date: 2021-06-05 15:26+0100\n"
+"POT-Creation-Date: 2023-04-11 21:23+0300\n"
+"PO-Revision-Date: 2023-04-11 21:56+0300\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 2.0.7\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
-"Language: ar\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#. Translators: The title of virtual menu.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:46
+#, fuzzy
+#| msgid "Open link with"
+msgid "Open link with menu"
+msgstr "فتح الروابط"
+
+#. Translators: Message displayed if error happens in activating a menu item.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:88
+msgid "Error in opening the link with {item} browser"
+msgstr "حدَثَ خَطأ عند فتح الرابط بالمتصفح {item}."
+
+#. Translators: Title of message box
+#: addon\globalPlugins\OpenLinkWith\__init__.py:91
+msgid "Error Message"
+msgstr "رسالةْ خَطأ"
 
 #. Translators: Category of addon in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:24
+#: addon\globalPlugins\OpenLinkWith\__init__.py:104
 #: addon\globalPlugins\OpenLinkWith\mydialog.py:15 buildVars.py:23
 msgid "Open Link With"
 msgstr "فتح الروابط"
 
 #. Translators: label of openLinkWith setting menu in preferences menu
-#: addon\globalPlugins\OpenLinkWith\__init__.py:35
+#: addon\globalPlugins\OpenLinkWith\__init__.py:116
 msgid "OpenLinkWith..."
 msgstr "فتح الروابط..."
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:54
+#: addon\globalPlugins\OpenLinkWith\__init__.py:136
 msgid "Display Open Link With dialog with extracted links from selected text."
 msgstr "إظهار محاورة فتح الروابط بالروابط الموجودة في النص المحدد."
 
 #. Translators: displayed if another instance of the dialog is present.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:60
-#: addon\globalPlugins\OpenLinkWith\__init__.py:76
+#: addon\globalPlugins\OpenLinkWith\__init__.py:142
+#: addon\globalPlugins\OpenLinkWith\__init__.py:161
+#: addon\globalPlugins\OpenLinkWith\__init__.py:180
 msgid "another instance of the dialog is openned, close it please"
 msgstr "هناك محاورة أخرى مفتوحة, اغلِقْها فضلا"
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:70
+#: addon\globalPlugins\OpenLinkWith\__init__.py:155
 msgid "Display Open Link With dialog with extracted links from clipboard."
 msgstr "إظهار محاورة فتح الروابط بالروابط الموجودة في الحافِظة."
 
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:174
+msgid ""
+"Display Open Link With dialog with extracted links from last spoken text."
+msgstr "إظهار محاورة فتح الروابط بالروابط الموجودة في آخِر نص منطوق."
+
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:193
+msgid ""
+"Display a menu, if standing on a hyper link to give you the option to open "
+"the link with other browsers on  your machine."
+msgstr ""
+"إظهار قائمة, إذا كنت تقف على رابط, لإعطائك إمكانيةْ فتح الرابط بمتصفحات أخرى "
+"على حاسوبك."
+
+#. Translators: Tell user that the command has been run on something that is not a link
+#: addon\globalPlugins\OpenLinkWith\__init__.py:206
+msgid "Not a link."
+msgstr "ليس بِرابط."
+
+#. Translators: Message display if the link is not suited to open with the browser.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:212
+msgid "The link {linkValue} is not suitable to open with the browser"
+msgstr "الرابط ذو القيمة {linkValue} ليس مِن المناسب فتحه بالمتصفح."
+
+#. Translators: Title of message box.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:215
+msgid "Information"
+msgstr "تعليمات"
+
 #. Translators: title of the dialog
-#: addon\globalPlugins\OpenLinkWith\__init__.py:94
+#: addon\globalPlugins\OpenLinkWith\__init__.py:247
 msgid "Open link with"
 msgstr "فتح الروابط"
 
 #. Translators: label of the check box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:99
+#: addon\globalPlugins\OpenLinkWith\__init__.py:252
 msgid "Close openLinkWith Dialog after activating a link"
 msgstr "إغلاق محاورة فتح الروابط بعد تفعيل أحد الروابط"
 
+#. Translators: label of the check box
+#: addon\globalPlugins\OpenLinkWith\__init__.py:257
+msgid "If only one link, open directly with default browser"
+msgstr "إذا كان رابط واحد فقط, فقم فتحه بالمتصفح الإفتراضي فورا"
+
 #. Translators: Displayed if there is no text selected.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:44
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:80
 msgid "No text selected"
 msgstr "لا يوجد نص محدد"
 
 #. Translators: Displayed if there is no links in selected text.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:51
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:87
 msgid "no links in selected text"
 msgstr "لا توجد روابط في النص المحدد"
 
 #. Translators: Message displayed when there is no text in clipboard.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:61
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:97
 msgid "No text in clipboard."
 msgstr "ليس هناك نص في الحافِظة."
 
 #. Translators: Message displayed when there is no links in clipboard text.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:67
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:103
 msgid "No links in clipboard text."
+msgstr "ليس هناك روابط في النص الموجود في الحافِظة"
+
+#. Translators: Message displayed when there is no text in LastSpoken
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:113
+msgid "No text."
+msgstr "ليس هناك نص"
+
+#. Translators: Message displayed when there is no links in last spoken text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:119
+#, fuzzy
+#| msgid "No links in clipboard text."
+msgid "No links in last spoken text."
 msgstr "ليس هناك روابط في النص الموجود في الحافِظة"
 
 #: addon\globalPlugins\OpenLinkWith\mydialog.py:22
@@ -87,11 +152,20 @@ msgstr "افتح بالمتصفح"
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:26
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "\tExtract links if found in selected textor clipboard, display them in a "
+#| "list in a dialog, giving you the option to open any link with various "
+#| "browsers found on computer.\n"
+#| "\tPress the command you assotiated with the addon via input gestures, to "
+#| "display OpenLinkWith dialog.\n"
+#| "\t"
 msgid ""
 "\n"
-"\tExtract links if found in selected textor clipboard, display them in a "
-"list in a dialog, giving you the option to open any link with various "
-"browsers found on computer.\n"
+"\tExtract links if found in selected, last spoken or clipboard text, display "
+"them in a list in a dialog, giving you the option to open any link with "
+"various browsers found on computer.\n"
 "\tPress the command you assotiated with the addon via input gestures, to "
 "display OpenLinkWith dialog.\n"
 "\t"

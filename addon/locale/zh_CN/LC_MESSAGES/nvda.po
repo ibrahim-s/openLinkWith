@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'openLinkWith' '2.6'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2022-04-03 09:43+0800\n"
-"PO-Revision-Date: 2022-04-03 09:44+0800\n"
+"POT-Creation-Date: 2023-04-12 08:08+0800\n"
+"PO-Revision-Date: 2023-04-12 08:11+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -18,55 +18,94 @@ msgstr ""
 "X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#. Translators: The title of virtual menu.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:46
+msgid "Open link with menu"
+msgstr "打开链接菜单"
+
+#. Translators: Message displayed if error happens in activating a menu item.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:88
+msgid "Error in opening the link with {item} browser"
+msgstr "使用 {item} 浏览器打开链接时出错"
+
+#. Translators: Title of message box
+#: addon\globalPlugins\OpenLinkWith\__init__.py:91
+msgid "Error Message"
+msgstr "错误信息"
+
 #. Translators: Category of addon in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:33
+#: addon\globalPlugins\OpenLinkWith\__init__.py:104
 #: addon\globalPlugins\OpenLinkWith\mydialog.py:15 buildVars.py:23
 msgid "Open Link With"
 msgstr "打开链接"
 
 #. Translators: label of openLinkWith setting menu in preferences menu
-#: addon\globalPlugins\OpenLinkWith\__init__.py:45
+#: addon\globalPlugins\OpenLinkWith\__init__.py:116
 msgid "OpenLinkWith..."
 msgstr "打开链接"
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:65
+#: addon\globalPlugins\OpenLinkWith\__init__.py:136
 msgid "Display Open Link With dialog with extracted links from selected text."
 msgstr "从选中文本中提取链接"
 
 #. Translators: displayed if another instance of the dialog is present.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:71
-#: addon\globalPlugins\OpenLinkWith\__init__.py:90
-#: addon\globalPlugins\OpenLinkWith\__init__.py:109
+#: addon\globalPlugins\OpenLinkWith\__init__.py:142
+#: addon\globalPlugins\OpenLinkWith\__init__.py:161
+#: addon\globalPlugins\OpenLinkWith\__init__.py:180
 msgid "another instance of the dialog is openned, close it please"
 msgstr "另一个对话框已打开，请先关闭。"
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:84
+#: addon\globalPlugins\OpenLinkWith\__init__.py:155
 msgid "Display Open Link With dialog with extracted links from clipboard."
 msgstr "从剪贴板文本中提取链接"
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:103
+#: addon\globalPlugins\OpenLinkWith\__init__.py:174
 msgid ""
 "Display Open Link With dialog with extracted links from last spoken text."
 msgstr "从最后一次朗读的文本中提取链接"
 
+#. Translators: Message to be displayed in input help mode.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:193
+msgid ""
+"Display a menu, if standing on a hyper link to give you the option to open "
+"the link with other browsers on  your machine."
+msgstr ""
+"显示一个菜单，如果输入焦点位于超链接上，可以选择用已安装的其他浏览器打开链"
+"接。"
+
+#. Translators: Tell user that the command has been run on something that is not a link
+#: addon\globalPlugins\OpenLinkWith\__init__.py:206
+msgid "Not a link."
+msgstr "不是链接。"
+
+#. Translators: Message display if the link is not suited to open with the browser.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:212
+msgid "The link {linkValue} is not suitable to open with the browser"
+msgstr "链接 {linkValue} 不适合用浏览器打开"
+
+#. Translators: Title of message box.
+#: addon\globalPlugins\OpenLinkWith\__init__.py:215
+msgid "Information"
+msgstr "信息"
+
 #. Translators: title of the dialog
-#: addon\globalPlugins\OpenLinkWith\__init__.py:131
+#: addon\globalPlugins\OpenLinkWith\__init__.py:247
 msgid "Open link with"
 msgstr "打开链接"
 
 #. Translators: label of the check box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:136
+#: addon\globalPlugins\OpenLinkWith\__init__.py:252
 msgid "Close openLinkWith Dialog after activating a link"
 msgstr "打开链接后关闭对话框"
 
 #. Translators: label of the check box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:141
+#: addon\globalPlugins\OpenLinkWith\__init__.py:257
 msgid "If only one link, open directly with default browser"
 msgstr "若只有一个链接则直接用默认浏览器打开"
 
