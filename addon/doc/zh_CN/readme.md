@@ -3,7 +3,7 @@
 作者： Ibrahim Hamadeh, Cary-Rowen, Belala Toufik  
 NVDA 兼容性：2018.3 及更高版本
 
-下载 [2.8版][1]
+下载 [2.9版][1]
 
 
 该插件可以从选中的文本、剪贴板中的文本或最后一次朗读的文本中提取所包含的链接，并显示在一个弹出对话框的列表内，您可以选择使用已安装的浏览器打开列表中的链接。
@@ -36,7 +36,7 @@ NVDA 兼容性：2018.3 及更高版本
 Alt+/ 是默认快捷键，但您始终可以通过 NVDA 菜单/选项/按键与手势/打开链接来更改该快捷键。
 
 
-## 2.8 的变化 ##
+## 2.9 的变化 ##
 *	添加超链接菜单功能，让您可以选择用其他浏览器打开链接。
 *	输入焦点在超链接上，按 Alt+/
 *	将弹出一个菜单，让您可以选择用已安装的其他浏览器打开链接。
@@ -75,4 +75,4 @@ Alt+/ 是默认快捷键，但您始终可以通过 NVDA 菜单/选项/按键与
 ## 1.0 的变化 ##
 *	初始版本
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.8/openLinkWith-2.8.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.9/openLinkWith-2.9.nvda-addon
