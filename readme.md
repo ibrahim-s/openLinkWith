@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2018.3 and beyond   
-Download [Development Version 2.9][1]  
+Download [Version 2.9][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -84,4 +84,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.9-dev/openLinkWith-2.9-dev.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.9/openLinkWith-2.9.nvda-addon
