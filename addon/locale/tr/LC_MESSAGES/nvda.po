@@ -5,60 +5,101 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'Bağlantıyı Şununla Aç 2.7'\n"
+"Project-Id-Version: 'Bağlantıyı Şununla Aç 2.9'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2022-04-03 13:52+0300\n"
-"PO-Revision-Date: 2022-04-03 14:10+0300\n"
+"POT-Creation-Date: 2023-04-12 13:01+0300\n"
+"PO-Revision-Date: 2023-04-12 13:15+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../globalPlugins\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: openLinkWith/__init__.py:33
-#: openLinkWith/mydialog.py:15
+#: openLinkWith/__init__.py:46
+#| msgid "Open link with"
+msgid "Open link with menu"
+msgstr "Bağlantıyı şununla aç menüsü"
+
+#: openLinkWith/__init__.py:88
+#, python-brace-format
+msgid "Error in opening the link with {item} browser"
+msgstr "{item} tarayıcısıyla bağlantıyı açarken hata oluştu"
+
+#: openLinkWith/__init__.py:91
+msgid "Error Message"
+msgstr "Hata mesajı"
+
+#: openLinkWith/__init__.py:104 openLinkWith/mydialog.py:15
 msgid "Open Link With"
 msgstr "Bağlantıyı Şununla Aç"
 
-#: openLinkWith/__init__.py:45
+#: openLinkWith/__init__.py:116
 msgid "OpenLinkWith..."
 msgstr "&BağlantıyıŞununlaAç..."
 
-#: openLinkWith/__init__.py:65
-msgid "Display Open Link With dialog with extracted links from selected text."
-msgstr "Seçili metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç iletişim kutusunu gösterir."
-
-#: openLinkWith/__init__.py:71
-#: openLinkWith/__init__.py:90
-#: openLinkWith/__init__.py:109
-msgid "another instance of the dialog is openned, close it please"
-msgstr "iletişim kutusunun başka bir örneği zaten açık, lütfen kapatın."
-
-#: openLinkWith/__init__.py:84
-msgid "Display Open Link With dialog with extracted links from clipboard."
-msgstr "Panodaki metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç iletişim kutusunu gösterir."
-
-#: openLinkWith/__init__.py:103
-#| msgid ""
-#| "Display Open Link With dialog with extracted links from selected text."
-msgid "Display Open Link With dialog with extracted links from last spoken text."
-msgstr "Son söylenen metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç iletişim kutusunu gösterir."
-
-#: openLinkWith/__init__.py:131
-msgid "Open link with"
-msgstr "Bağlantıyı şununla aç:"
-
 #: openLinkWith/__init__.py:136
-msgid "Close openLinkWith Dialog after activating a link"
-msgstr "Bir bağlantıyı etkinleştirdikten sonra BağlantıyıŞununlaAç iletişim kutusunu kapat"
+msgid "Display Open Link With dialog with extracted links from selected text."
+msgstr ""
+"Seçili metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç "
+"iletişim kutusunu gösterir."
 
-#: openLinkWith/__init__.py:141
+#: openLinkWith/__init__.py:142 openLinkWith/__init__.py:161
+#: openLinkWith/__init__.py:180
+msgid "another instance of the dialog is openned, close it please"
+msgstr "iletişim kutusunun başka bir örneği zaten açık, lütfen kapatın"
+
+#: openLinkWith/__init__.py:155
+msgid "Display Open Link With dialog with extracted links from clipboard."
+msgstr ""
+"Panodaki metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç "
+"iletişim kutusunu gösterir."
+
+#: openLinkWith/__init__.py:174
+msgid ""
+"Display Open Link With dialog with extracted links from last spoken text."
+msgstr ""
+"Son söylenen metinden ayıklanmış bağlantıları içeren, Bağlantıyı Şununla Aç "
+"iletişim kutusunu gösterir."
+
+#: openLinkWith/__init__.py:193
+msgid ""
+"Display a menu, if standing on a hyper link to give you the option to open "
+"the link with other browsers on  your machine."
+msgstr ""
+"Bir köprü üzerindeyken, bağlantıyı bilgisayardaki diğer tarayıcılarla açma "
+"seçeneği sunmak için bir menü görüntüler."
+
+#: openLinkWith/__init__.py:206
+msgid "Not a link."
+msgstr "Bağlantı değil."
+
+#: openLinkWith/__init__.py:212
+#, python-brace-format
+msgid "The link {linkValue} is not suitable to open with the browser"
+msgstr "{linkValue} bağlantısı tarayıcıyla açılmaya uygun değil"
+
+#: openLinkWith/__init__.py:215
+msgid "Information"
+msgstr "Bilgi"
+
+#: openLinkWith/__init__.py:247
+msgid "Open link with"
+msgstr "Bağlantıyı şununla aç"
+
+#: openLinkWith/__init__.py:252
+msgid "Close openLinkWith Dialog after activating a link"
+msgstr ""
+"Bir bağlantıyı etkinleştirdikten sonra BağlantıyıŞununlaAç iletişim kutusunu "
+"kapat"
+
+#: openLinkWith/__init__.py:257
 msgid "If only one link, open directly with default browser"
 msgstr "Eğer tek bir bağlantı varsa, varsayılan tarayıcı ile aç"
 
@@ -83,12 +124,10 @@ msgid "No text."
 msgstr "Metin yok."
 
 #: openLinkWith/getlinks.py:119
-#| msgid "No links in clipboard text."
 msgid "No links in last spoken text."
 msgstr "Son konuşulan metinde bağlantı yok."
 
 #: openLinkWith/mydialog.py:22
-#| msgid "Open Link With"
 msgid "Open With"
 msgstr "Şununla Aç"
 
