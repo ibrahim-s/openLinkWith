@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2018.3 and beyond   
-Download [Version 2.9][1]  
+Download [Version 3.0][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -35,6 +35,11 @@ Here comes the beautiful hyper link menu feature, press the gesture of hyper lin
 Lot of times, while reading a message encounter a link to github, the browser I am logged in with it in github is Chrome, while my default browser is Firefox, and I need to open the link with Chrome to react with the issue of the link. Hyper link menu can help me now to go to github with the browser I am already logged in with it, even if it is not the default one.
 
 Alt+/ is the default gesture, but you can always change it through NVDA menu/Preferences/Input gestures/Open link with.
+
+## Changes for 3.0 ##
+
+*	Fix the issue of gui.SettingsPanel, and get rid of warning messages in the log.
+*	Use github actions instead of apveyor to build the addon.
 
 ## Changes for 2.9 ##
 
@@ -84,4 +89,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/v2.9/openLinkWith-2.9.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.0/openLinkWith-3.0.nvda-addon

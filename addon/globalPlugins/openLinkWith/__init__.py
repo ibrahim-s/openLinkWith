@@ -107,7 +107,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
 		LastSpoken._patch()
 
-		if hasattr(gui, 'SettingsPanel'):
+		if hasattr(gui.settingsDialogs, 'SettingsPanel'):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithSettings)
 		else:
 			self.prefmenu= gui.mainFrame.sysTrayIcon.preferencesMenu
@@ -123,7 +123,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def terminate(self):
 		LastSpoken.terminate()
-		if hasattr(gui, 'SettingsPanel'):
+		if hasattr(gui.settingsDialogs, 'SettingsPanel'):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(OpenLinkWithSettings)
 		else:
 			try:
@@ -240,8 +240,8 @@ configspec={
 }
 config.conf.spec["openLinkWith"]= configspec
 
-parentClass= gui.SettingsPanel if hasattr(gui, 'SettingsPanel') else gui.SettingsDialog
 #make either SettingsPanel or SettingsDialog class
+parentClass= gui.settingsDialogs.SettingsPanel if hasattr(gui.settingsDialogs, 'SettingsPanel') else gui.settingsDialogs.SettingsDialog
 class OpenLinkWithSettings(parentClass):
 	# Translators: title of the dialog
 	title= _("Open link with")
