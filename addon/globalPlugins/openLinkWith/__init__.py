@@ -16,6 +16,7 @@ import api
 import ui
 import controlTypes
 import queueHandler
+import textInfos
 from .mydialog import MyDialog
 from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
@@ -26,6 +27,42 @@ import addonHandler
 addonHandler.initTranslation()
 
 DIALOG= None
+
+def getLinkObj():
+	''' Aimed to access the object of a link , if not None,
+	it returns the object of the link, and in the other function we get the link destination by obj.value'''
+	try:
+		ti: textInfos.TextInfo = api.getCaretPosition()
+	except RuntimeError:
+		log.debugWarning("Unable to get the caret position.", exc_info=True)
+		ti: textInfos.TextInfo = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
+	ti.expand(textInfos.UNIT_CHARACTER)
+	obj: NVDAObject = ti.NVDAObjectAtStart
+	if (
+		obj.role == controlTypes.role.Role.GRAPHIC
+		and (
+			obj.parent
+			and obj.parent.role == controlTypes.role.Role.LINK
+		)
+	):
+		# In Firefox, graphics with a parent link also expose the parents link href value.
+		# In Chromium, the link href value must be fetched from the parent object. (#14779)
+		obj = obj.parent
+	if (
+		obj.role == controlTypes.role.Role.LINK  # If it's a link, or
+		or controlTypes.state.State.LINKED in obj.states  # if it isn't a link but contains one
+	):
+		linkDestination = obj.value
+		if linkDestination:
+			return obj
+		elif linkDestination is None:
+			# Translators: Informs the user that the link has no destination
+			ui.message(_("Link has no apparent destination"))
+			return
+	else:
+		# Translators: Tell user that the command has been run on something that is not a link
+		ui.message(_("Not a link."))
+		return
 
 class VirtualMenu():
 	''' Helper class that deals with the virtual menu.
@@ -197,19 +234,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_showVirtualMenu(self, gesture):
 		#log.info('under script_showVirtualMenu...')
-		obj = api.getNavigatorObject()
-		if not (
-			obj.role == controlTypes.role.Role.LINK  # If it's a link, or
-			or controlTypes.state.State.LINKED in obj.states  # if it isn't a link but contains one
-		):
-			# Translators: Tell user that the command has been run on something that is not a link
-			ui.message(_("Not a link."))
+		obj = getLinkObj()
+		if obj is None:
 			return
+		linkDestination = obj.value
 		# It is a link, but may be it's value is an email or other thing that shouldn't be opened with a browser.
 		import re
-		if not re.match(r'https?://|ftp://|www.', obj.value):
+		if linkDestination and not re.match(r'https?://|ftp://|www.', linkDestination):
 			# Translators: Message display if the link is not suited to open with the browser.
-			message= _("The link {linkValue} is not suitable to open with the browser").format(linkValue= obj.value)
+			message= _("The link {linkValue} is not suitable to open with the browser").format(linkValue= linkDestination)
 			wx.CallAfter(gui.messageBox, message,
 			# Translators: Title of message box.
 			_("Information"), style= wx.OK|wx.ICON_INFORMATION)
@@ -220,7 +253,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		for key in ('downArrow', 'upArrow', 'leftArrow', 'rightArrow', 'escape', 'enter'):
 			self.bindGesture(f'kb:{key}', 'workOnVirtualMenu')
 		VirtualMenu.navigatorObject= obj
-		VirtualMenu.url= obj.value
+		VirtualMenu.url= linkDestination
 		VirtualMenu.showMenu()
 
 	def script_workOnVirtualMenu(self, gesture):
