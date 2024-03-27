@@ -28,7 +28,7 @@ addon_info = {
 	Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 	"""),
 	# version
-	"addon_version": "3.2.1",
+	"addon_version": "3.2.2",
 	# Author(s)
 	"addon_author": "Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Cary Rowen <manchen_0528@outlook.com>, Belala Toufik<belaalatoufik@gmail.com>",
 	# URL for the add-on documentation support
