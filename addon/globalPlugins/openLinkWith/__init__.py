@@ -17,7 +17,7 @@ import ui
 import controlTypes
 import queueHandler
 import textInfos
-from .mydialog import MyDialog
+from .mydialog import MyDialog, browsersGoPrivate
 from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
 from scriptHandler import script
@@ -27,6 +27,10 @@ import addonHandler
 addonHandler.initTranslation()
 
 DIALOG= None
+
+foundBrowsersNames= [browser for browser, path in getBrowsers()]
+privateLabels= [value[0] for key, value in browsersGoPrivate.items() if key in foundBrowsersNames]
+allBrowserLabels= foundBrowsersNames+ privateLabels
 
 def getLinkObj():
 	''' Aimed to access the object of a link , if not None,
@@ -70,13 +74,15 @@ class VirtualMenu():
 	'''
 	# If the menu already active or not.
 	isActive= False
-	menuItems= [browser for browser, path in getBrowsers()]
+	# menuItems consist of browsers found, and those that may go private.
+	menuItems= allBrowserLabels
 	index= 0
 	# url for the link of interest.
 	url= None
 
 	@classmethod
 	def showMenu(cls):
+		#log.info(f'under show virtual menu ...')
 		cls.index= 0
 		cls.isActive= True
 		# Translators: The title of virtual menu.
@@ -117,12 +123,17 @@ class VirtualMenu():
 		#log.info('Activating a menu item ...')
 		try:
 			# get the executable path of selected browser
-			exePath= getBrowsers()[cls.index][1]
-			#log.info(f'url: {cls.url}')
-			subprocess.Popen(exePath+' '+cls.url)
+			label= cls.menuItems[cls.index]
+			basicBrowser= label.split('(')[0]if '(' in label else label
+			exePath= [path for browser, path in getBrowsers() if browser== basicBrowser][0]
+			if '(' in label :
+				flag= browsersGoPrivate[basicBrowser][1]
+				subprocess.Popen([exePath,flag, cls.url])
+			else:
+				subprocess.Popen(exePath+' '+cls.url)
 		except:
 			# Translators: Message displayed if error happens in activating a menu item.
-			message= _("Error in opening the link with {item} browser").format(item= getBrowsers()[cls.index][0])
+			message= _("Error in opening the link with {item} browser").format(item= cls.menuItems[cls.index])
 			wx.CallAfter(gui.messageBox, message,
 			# Translators: Title of message box
 			_("Error Message"), style= wx.OK|wx.ICON_ERROR)
@@ -181,7 +192,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		list_= getLinksFromSelectedText()
 		if list_:
 			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0])
+				webbrowser.open(list_[0], new=2)
 				return
 			browsers= getBrowsers()
 			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
@@ -200,7 +211,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		list_= getLinksFromClipboard()
 		if list_:
 			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0])
+				webbrowser.open(list_[0], new=2)
 				return
 			browsers= getBrowsers()
 			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
@@ -219,7 +230,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		list_= getLinksFromLastSpoken()
 		if list_:
 			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0])
+				webbrowser.open(list_[0], new=2)
 				return
 			browsers= getBrowsers()
 			DIALOG= MyDialog(gui.mainFrame, list_, browsers)

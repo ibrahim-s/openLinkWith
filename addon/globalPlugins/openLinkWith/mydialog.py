@@ -6,8 +6,17 @@ import os
 import webbrowser 
 import subprocess 
 from .getbrowsers import getBrowsers
+from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
+
+# browsersGoPrivate is adictionary with this signuture:
+# {browserName: [labelOfPrivateButton, privateFlag]}
+browsersGoPrivate= {
+	'Firefox': ['Firefox(Private mode)', '--private-window'],
+	'Google Chrome': ['Google Chrome(Incognito mode)', '--incognito'],
+	'Microsoft Edge': ['Microsoft Edge(InPrivate mode)', '--inprivate'],
+}
 
 class MyDialog(wx.Dialog):
 
@@ -27,6 +36,11 @@ class MyDialog(wx.Dialog):
 			btn = wx.Button(panel, -1, label = browser)
 			btn.Bind(wx.EVT_BUTTON, lambda evt, temp=path: self.onOpen(evt, temp))
 			buttonSizer.Add(btn, 1, wx.ALL, 10)
+			if browser in browsersGoPrivate:
+				btn2 = wx.Button(panel, -1, label = browsersGoPrivate[browser][0])
+				btn2.Bind(wx.EVT_BUTTON, lambda evt, temp=path: self.onOpenPrivate(evt, temp))
+				buttonSizer.Add(btn2, 1, wx.ALL, 10)
+
 		self.ok= wx.Button(panel, wx.ID_OK)
 		self.ok.SetDefault()
 		self.ok.Bind(wx.EVT_BUTTON, self.onOk)
@@ -56,6 +70,16 @@ class MyDialog(wx.Dialog):
 			subprocess.Popen(exe_path+' '+url)
 			self.checkCloseAfterActivatingLink()
 
+	def onOpenPrivate(self, evt, exe_path):
+		url= self.getUrl()
+		if url:
+			button= evt.GetEventObject()
+			label= button.GetLabel() 
+			browser= label.split('(')[0]
+			subprocess.Popen([exe_path, browsersGoPrivate[browser][1], url])
+			self.checkCloseAfterActivatingLink()
+
+
 	def getUrl(self):
 		i = self.listBox.GetSelection()
 		if i!= -1:
@@ -68,5 +92,5 @@ class MyDialog(wx.Dialog):
 	def onOk(self, e):
 		url= self.getUrl()
 		if url:
-			webbrowser.open(url)
+			webbrowser.open(url, new=2)
 			self.checkCloseAfterActivatingLink()
