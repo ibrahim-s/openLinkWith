@@ -29,8 +29,14 @@ addonHandler.initTranslation()
 DIALOG= None
 
 foundBrowsersNames= [browser for browser, path in getBrowsers()]
-privateLabels= [value[0] for key, value in browsersGoPrivate.items() if key in foundBrowsersNames]
-allBrowserLabels= foundBrowsersNames+ privateLabels
+def getBrowserLabels():
+	''' Get all browser labels, together with those available in private mode. '''
+	result= []
+	for browser in foundBrowsersNames:
+		result.append(browser)
+		if browser in browsersGoPrivate:
+			result.append(browsersGoPrivate[browser][0])
+	return result
 
 def getLinkObj():
 	''' Aimed to access the object of a link , if not None,
@@ -75,7 +81,7 @@ class VirtualMenu():
 	# If the menu already active or not.
 	isActive= False
 	# menuItems consist of browsers found, and those that may go private.
-	menuItems= allBrowserLabels
+	menuItems= getBrowserLabels()
 	index= 0
 	# url for the link of interest.
 	url= None
