@@ -1,4 +1,3 @@
-## Changes for 3.2.3 ##
+## Changes for 3.2.4 ##
 
-*	Add the option for opening the link in private mode, for Firefox, Chrome and Microsoft Edge if found in your computer. You can reach to them in Open link with menu.
-*	In webbrowser.open function add new=2 argument, so that the link will Open in a new tab in the foreground.
+*	Update last tested version, thus making the addon compatible with NVDA 2025.1 release.
