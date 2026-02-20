@@ -1,3 +1,4 @@
-## Changes for 3.2.4 ##
+## Changes for 3.2.5 ##
 
-*	Update last tested version, thus making the addon compatible with NVDA 2025.1 release.
+*	Update minimum tested version to 2021.1, and remove versionInfo related code.
+*	Update addon template files.
