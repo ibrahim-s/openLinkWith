@@ -26,10 +26,10 @@ Extract links if found in selected, last spoken or clipboard text, display them 
 Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 """),
 	# version
-	addon_version="3.2.5",
+	addon_version="3.2.6",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Update addon template files."""),
+	addon_changelog=_("""- Update last tested version, to comply with NVDA 2026.1 release."""),
 	# Author(s)
 	addon_author="Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Cary Rowen <manchen_0528@outlook.com>, Belala Toufik<belaalatoufik@gmail.com>",
 	# URL for the add-on documentation support

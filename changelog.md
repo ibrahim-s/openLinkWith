@@ -1,4 +1,3 @@
-## Changes for 3.2.5 ##
+## Changes for 3.2.6 ##
 
-*	Update minimum tested version to 2021.1, and remove versionInfo related code.
-*	Update addon template files.
+*	Update last tested version, to comply with NVDA 2026.1 release.
