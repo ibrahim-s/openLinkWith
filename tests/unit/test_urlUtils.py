@@ -725,6 +725,12 @@ class InternationalUrlTests(unittest.TestCase):
 class SourceCompatibilityTests(unittest.TestCase):
 	"""Tests for compatibility with the add-on's declared minimum NVDA version."""
 
+	def testLoadsWithoutUnbundledIpaddressModule(self) -> None:
+		"""Load when ipaddress is absent from NVDA's frozen standard library."""
+		with patch.dict("sys.modules", {"ipaddress": None}):
+			namespace = runpy.run_path(str(_URL_UTILS_PATH))
+		self.assertIn("findUrls", namespace)
+
 	def testSupportsPython37Grammar(self) -> None:
 		"""Keep production code parseable by the Python version in NVDA 2021.1."""
 		ast.parse(_URL_UTILS_PATH.read_text(encoding="utf-8"), feature_version=(3, 7))

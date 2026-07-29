@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from ipaddress import IPv6Address
 import re
+from socket import AF_INET6, inet_pton
 import unicodedata
 from urllib.parse import urlsplit
 
@@ -89,8 +89,8 @@ def _isValidIpLiteral(hostname: str) -> bool:
 	if "%" in ipv6Address or (zoneSeparator and (not zoneId or "%" in zoneId)):
 		return False
 	try:
-		_ = IPv6Address(ipv6Address)
-	except ValueError:
+		_ = inet_pton(AF_INET6, ipv6Address)
+	except OSError:
 		return False
 	return True
 
