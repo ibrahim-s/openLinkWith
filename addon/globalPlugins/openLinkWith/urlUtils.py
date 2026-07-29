@@ -65,11 +65,14 @@ def isSupportedUrl(url: str) -> bool:
 	"""Return whether the entire string is a supported URL."""
 	if _URL_PATTERN.fullmatch(url) is None or _INVALID_PERCENT_ESCAPE_PATTERN.search(url):
 		return False
-	urlToParse = f"http://{url}" if url[:4].casefold() == "www." else url
+	hasBareWwwPrefix = url[:4].casefold() == "www."
+	urlToParse = f"http://{url}" if hasBareWwwPrefix else url
 	try:
 		parsedUrl = urlsplit(urlToParse)
 		hostname = parsedUrl.hostname
 		port = parsedUrl.port
 	except ValueError:
 		return False
-	return bool(hostname) and (port is None or 0 <= port <= 65535)
+	if not hostname or (hasBareWwwPrefix and hostname.rstrip(".").casefold() == "www"):
+		return False
+	return port is None or 0 <= port <= 65535
