@@ -2,6 +2,7 @@
 
 import ast
 from collections.abc import Callable
+from itertools import product
 from pathlib import Path
 import runpy
 from typing import cast
@@ -354,6 +355,71 @@ class SupportedUrlTests(unittest.TestCase):
 			with self.subTest(url=url):
 				self.assertTrue(_isSupportedUrl(url))
 
+	def testAcceptsAuthorityComponentCombinations(self) -> None:
+		"""Accept supported schemes, userinfo, hosts, ports, and suffixes in combination."""
+		schemes = ("http://", "https://", "ftp://")
+		userinfoValues = (
+			"",
+			"user@",
+			"user:pass@",
+			"user%20name:p%40ss@",
+			"\u7528\u6237:\u5bc6\u7801@",
+			"\U0001f464@",
+		)
+		hosts = (
+			"example.com",
+			"localhost",
+			"127.0.0.1",
+			"\u4f8b\u5b50.\u4e2d\u56fd",
+			"\U0001f453.ws",
+			"[::1]",
+		)
+		ports = ("", ":0", ":65535")
+		suffixes = ("", "/", "/path", "?q=value", "#fragment", "/\u8def\u5f84?q=\u503c#\u7247\u6bb5")
+		for scheme, userinfo, host, port, suffix in product(
+			schemes,
+			userinfoValues,
+			hosts,
+			ports,
+			suffixes,
+		):
+			url = f"{scheme}{userinfo}{host}{port}{suffix}"
+			with self.subTest(url=url):
+				self.assertTrue(_isSupportedUrl(url))
+				self.assertEqual([url], _findUrls(url))
+
+		for host, port, suffix in product(hosts[:-1], ports, suffixes):
+			url = f"www.{host}{port}{suffix}"
+			with self.subTest(url=url):
+				self.assertTrue(_isSupportedUrl(url))
+				self.assertEqual([url], _findUrls(url))
+
+	def testLaterAtSignsDoNotCrossAuthorityBoundaries(self) -> None:
+		"""Do not reinterpret text before an illegal userinfo character as credentials."""
+		boundaries = (
+			"[",
+			"]",
+			"<",
+			">",
+			'"',
+			"\\",
+			"^",
+			"`",
+			"{",
+			"|",
+			"}",
+			" ",
+			"\n",
+			"\u200b",
+			"\u200f",
+			"\uff5c",
+		)
+		for prefix, boundary in product(("http://", "https://", "ftp://", "www."), boundaries):
+			expected = f"{prefix}first.example"
+			text = f"{expected}{boundary}label@example.com"
+			with self.subTest(prefix=prefix, codePoint=f"U+{ord(boundary):04X}"):
+				self.assertEqual([expected], _findUrls(text))
+
 	def testAcceptsEveryHexPercentEscape(self) -> None:
 		"""Accept every two-digit hexadecimal percent escape."""
 		hexDigits = "0123456789ABCDEF"
@@ -584,7 +650,7 @@ class InternationalUrlTests(unittest.TestCase):
 			("\uff5b", "\uff5d"),
 			("\uff62", "\uff63"),
 		)
-		for opening, closing in pairs:
+		for pairIndex, (opening, closing) in enumerate(pairs):
 			pathUrl = f"https://example.com/{opening}path{closing}"
 			with self.subTest(opening=opening, position="path"):
 				self.assertEqual([pathUrl], _findUrls(pathUrl))
@@ -592,6 +658,19 @@ class InternationalUrlTests(unittest.TestCase):
 				self.assertEqual(
 					["https://example.com/path"],
 					_findUrls(f"{opening}https://example.com/path{closing}suffix"),
+				)
+
+			nestedOpening, nestedClosing = pairs[(pairIndex + 1) % len(pairs)]
+			nestedUrl = f"https://example.com/{opening}{nestedOpening}path{nestedClosing}{closing}"
+			with self.subTest(opening=opening, position="nestedPath"):
+				self.assertEqual([nestedUrl], _findUrls(nestedUrl))
+			with self.subTest(opening=opening, position="extraClosing"):
+				self.assertEqual([pathUrl], _findUrls(pathUrl + closing))
+			with self.subTest(opening=opening, position="sentencePunctuation"):
+				self.assertEqual([pathUrl], _findUrls(pathUrl + "\u3002"))
+			with self.subTest(opening=opening, position="extraOpening"):
+				self.assertEqual(
+					["https://example.com/path"], _findUrls("https://example.com/path" + opening)
 				)
 
 

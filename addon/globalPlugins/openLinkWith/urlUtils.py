@@ -9,10 +9,12 @@ from urllib.parse import urlsplit
 
 _URL_PREFIX_PATTERN = re.compile(r"(?:https?://|ftp://|www\.)", re.IGNORECASE)
 _INVALID_INITIAL_URL_CHARACTERS = frozenset(",.?!#%=+")
-_URL_TERMINATOR_PATTERN = re.compile(
-	r'[\s\x00-\x1f\x7f-\x9f<>"\\^`{|}'
-	r"\u061c\u200b\u200e-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u206f\ufeff\uff5c]"
+_URL_TERMINATOR_CHARACTER_CLASS = (
+	r'\s\x00-\x1f\x7f-\x9f<>"\\^`{|}'
+	r"\u061c\u200b\u200e-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u206f\ufeff\uff5c"
 )
+_URL_TERMINATOR_PATTERN = re.compile(rf"[{_URL_TERMINATOR_CHARACTER_CLASS}]")
+_AUTHORITY_END_PATTERN = re.compile(rf"[/?#{_URL_TERMINATOR_CHARACTER_CLASS}]")
 _INVALID_PERCENT_ESCAPE_PATTERN = re.compile(r"%(?![0-9A-Fa-f]{2})")
 _HOSTNAME_PUNCTUATION_CHARACTERS = frozenset(
 	".-_%\u00b7\u0375\u05f3\u05f4\u200c\u200d\u3002\u30fb\uff0d\uff0e\uff3f\uff61"
@@ -55,89 +57,74 @@ _TRIMMABLE_TRAILING_CHARACTERS = (
 )
 
 
-def _isUrlTerminator(character: str) -> bool:
-	"""Return whether a character definitely ends a raw URL candidate."""
-	return _URL_TERMINATOR_PATTERN.fullmatch(character) is not None
-
-
 def _hasValidUrlStart(text: str, prefixEnd: int) -> bool:
 	"""Return whether a supported prefix is followed by a possible URL character."""
 	return (
 		prefixEnd < len(text)
 		and text[prefixEnd] not in _INVALID_INITIAL_URL_CHARACTERS
-		and not _isUrlTerminator(text[prefixEnd])
+		and _URL_TERMINATOR_PATTERN.fullmatch(text[prefixEnd]) is None
 	)
 
 
 def _isAllowedHostnameCharacter(character: str) -> bool:
 	"""Return whether a raw character can be part of a browser-facing hostname."""
-	if character in _HOSTNAME_PUNCTUATION_CHARACTERS:
-		return True
 	# cmark-gfm and linkify-it admit Unicode symbols as well as letters, marks, and numbers.
-	return unicodedata.category(character)[0] in "LMNS"
+	return character in _HOSTNAME_PUNCTUATION_CHARACTERS or unicodedata.category(character)[0] in "LMNS"
 
 
 def _isAllowedUserinfoCharacter(character: str) -> bool:
 	"""Return whether a raw character can occur before an authority's final at sign."""
 	if not character.isascii():
-		return not _isUrlTerminator(character)
+		return _URL_TERMINATOR_PATTERN.fullmatch(character) is None
 	return character.isalnum() or character in _ASCII_USERINFO_CHARACTERS
 
 
-def _truncateAtAuthorityBoundary(url: str) -> str:
-	"""Stop a URL candidate at prose punctuation in its hostname or port."""
-	authorityStart = 0 if url[:4].casefold() == "www." else url.find("://") + 3
-	authorityEnd = len(url)
-	for separator in "/?#":
-		separatorIndex = url.find(separator, authorityStart)
-		if separatorIndex >= 0:
-			authorityEnd = min(authorityEnd, separatorIndex)
-	userinfoEnd = url.rfind("@", authorityStart, authorityEnd)
+def _findAuthorityEnd(text: str, prefixEnd: int) -> int:
+	"""Return the position where a URL authority ends."""
+	match = _AUTHORITY_END_PATTERN.search(text, prefixEnd)
+	return match.start() if match is not None else len(text)
+
+
+def _findAuthorityBoundary(text: str, urlStart: int, prefixEnd: int, authorityEnd: int) -> int:
+	"""Return the first prose boundary within a URL authority."""
+	authorityStart = urlStart if text[urlStart:prefixEnd].casefold() == "www." else prefixEnd
+	userinfoEnd = text.rfind("@", authorityStart, authorityEnd)
 	if userinfoEnd >= 0:
 		for index in range(authorityStart, userinfoEnd):
-			if not _isAllowedUserinfoCharacter(url[index]):
-				return url[:index]
+			if not _isAllowedUserinfoCharacter(text[index]):
+				return index
 	hostnameStart = userinfoEnd + 1 if userinfoEnd >= 0 else authorityStart
 	if hostnameStart >= authorityEnd:
-		return url
+		return authorityEnd
 
-	if url[hostnameStart] == "[":
-		closingBracket = url.find("]", hostnameStart + 1, authorityEnd)
+	if text[hostnameStart] == "[":
+		closingBracket = text.find("]", hostnameStart + 1, authorityEnd)
 		if closingBracket < 0:
-			return url
+			return authorityEnd
 		hostnameEnd = closingBracket + 1
 	else:
-		portSeparator = url.find(":", hostnameStart, authorityEnd)
+		portSeparator = text.find(":", hostnameStart, authorityEnd)
 		hostnameEnd = portSeparator if portSeparator >= 0 else authorityEnd
 		for index in range(hostnameStart, hostnameEnd):
-			if not _isAllowedHostnameCharacter(url[index]):
-				return url[:index]
+			if not _isAllowedHostnameCharacter(text[index]):
+				return index
 
 	if hostnameEnd >= authorityEnd:
-		return url
-	portStart = hostnameEnd + 1 if url[hostnameEnd] == ":" else hostnameEnd
+		return authorityEnd
+	portStart = hostnameEnd + 1 if text[hostnameEnd] == ":" else hostnameEnd
 	for index in range(portStart, authorityEnd):
-		if not _isAllowedHostnameCharacter(url[index]):
-			return url[:index]
-	return url
+		if not _isAllowedHostnameCharacter(text[index]):
+			return index
+	return authorityEnd
 
 
 def _findUrlCandidateEnd(text: str, urlStart: int, prefixEnd: int) -> int:
 	"""Return the end of one URL candidate without scanning later candidates."""
-	authorityEnd = len(text)
-	for separator in "/?#":
-		separatorIndex = text.find(separator, prefixEnd)
-		if separatorIndex >= 0:
-			authorityEnd = min(authorityEnd, separatorIndex)
-	terminatorMatch = _URL_TERMINATOR_PATTERN.search(text, prefixEnd, authorityEnd)
-	if terminatorMatch is not None:
-		authorityEnd = terminatorMatch.start()
-
-	authorityCandidate = text[urlStart:authorityEnd]
-	truncatedAuthority = _truncateAtAuthorityBoundary(authorityCandidate)
-	if len(truncatedAuthority) < len(authorityCandidate):
-		return urlStart + len(truncatedAuthority)
-	if authorityEnd >= len(text) or _isUrlTerminator(text[authorityEnd]):
+	authorityEnd = _findAuthorityEnd(text, prefixEnd)
+	authorityBoundary = _findAuthorityBoundary(text, urlStart, prefixEnd, authorityEnd)
+	if authorityBoundary < authorityEnd:
+		return authorityBoundary
+	if authorityEnd >= len(text) or text[authorityEnd] not in "/?#":
 		return authorityEnd
 
 	precedingCharacter = text[urlStart - 1] if urlStart else ""
@@ -183,26 +170,17 @@ def _trimUrlEnd(url: str) -> str:
 	if suffixStart == len(url):
 		return url
 
-	delimiterBalance = {opening: 0 for opening in _CLOSING_TO_OPENING_DELIMITERS.values()}
-	for index in range(suffixStart):
-		character = url[index]
-		if character in delimiterBalance:
-			delimiterBalance[character] += 1
-		elif character in _CLOSING_TO_OPENING_DELIMITERS:
-			opening = _CLOSING_TO_OPENING_DELIMITERS[character]
-			if delimiterBalance[opening]:
-				delimiterBalance[opening] -= 1
-
+	delimiterBalance = dict.fromkeys(_OPENING_TO_CLOSING_DELIMITERS, 0)
 	endIndex = suffixStart
-	for index in range(suffixStart, len(url)):
-		character = url[index]
+	for index, character in enumerate(url):
 		if character in delimiterBalance:
 			delimiterBalance[character] += 1
 		elif character in _CLOSING_TO_OPENING_DELIMITERS:
 			opening = _CLOSING_TO_OPENING_DELIMITERS[character]
 			if delimiterBalance[opening]:
 				delimiterBalance[opening] -= 1
-				endIndex = index + 1
+				if index >= suffixStart:
+					endIndex = index + 1
 	return url[:endIndex]
 
 
@@ -231,12 +209,13 @@ def findUrls(text: str) -> list[str]:
 def isSupportedUrl(url: str) -> bool:
 	"""Return whether the entire string is a supported URL."""
 	prefixMatch = _URL_PREFIX_PATTERN.match(url)
+	if prefixMatch is None or not _hasValidUrlStart(url, prefixMatch.end()):
+		return False
+	authorityEnd = _findAuthorityEnd(url, prefixMatch.end())
 	if (
-		prefixMatch is None
-		or not _hasValidUrlStart(url, prefixMatch.end())
-		or _URL_TERMINATOR_PATTERN.search(url) is not None
+		_URL_TERMINATOR_PATTERN.search(url) is not None
 		or _INVALID_PERCENT_ESCAPE_PATTERN.search(url)
-		or _truncateAtAuthorityBoundary(url) != url
+		or _findAuthorityBoundary(url, 0, prefixMatch.end(), authorityEnd) != authorityEnd
 	):
 		return False
 	hasBareWwwPrefix = url[:4].casefold() == "www."
