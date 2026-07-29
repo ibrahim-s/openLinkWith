@@ -5,14 +5,19 @@ from collections.abc import Callable
 from itertools import product
 from pathlib import Path
 import runpy
+from types import FunctionType
 from typing import cast
 import unittest
+from unittest.mock import Mock, patch
+from urllib.parse import SplitResult
 
 
 _URL_UTILS_PATH = Path(__file__).parents[2] / "addon" / "globalPlugins" / "openLinkWith" / "urlUtils.py"
 _URL_UTILS_NAMESPACE = runpy.run_path(str(_URL_UTILS_PATH))
 _findUrls = cast(Callable[[str], list[str]], _URL_UTILS_NAMESPACE["findUrls"])
+_isValidIpLiteral = cast(Callable[[str], bool], _URL_UTILS_NAMESPACE["_isValidIpLiteral"])
 _isSupportedUrl = cast(Callable[[str], bool], _URL_UTILS_NAMESPACE["isSupportedUrl"])
+_IS_SUPPORTED_URL_GLOBALS = cast(FunctionType, _URL_UTILS_NAMESPACE["isSupportedUrl"]).__globals__
 
 
 class FindUrlsTests(unittest.TestCase):
@@ -228,6 +233,11 @@ class FindUrlsTests(unittest.TestCase):
 		adjacentUrls = [f"http://host{index}" for index in range(1000)]
 		self.assertEqual(adjacentUrls, _findUrls(",".join(adjacentUrls)))
 
+	def testHandlesManyAdjacentBareWwwUrls(self) -> None:
+		"""Do not rescan the remaining text for every comma-separated bare URL."""
+		adjacentUrls = [f"www.host{index}" for index in range(4000)]
+		self.assertEqual(adjacentUrls, _findUrls(",".join(adjacentUrls)))
+
 
 class EstablishedAutolinkerRegressionTests(unittest.TestCase):
 	"""Regression cases adapted to this add-on from established URL autolinkers."""
@@ -339,6 +349,8 @@ class SupportedUrlTests(unittest.TestCase):
 			"WWW.example.com/path?q=1#fragment",
 			"ftp://user:pass@example.com:21/a%20b",
 			"http://[::1]",
+			"http://[2001:db8::1]",
+			"http://[::ffff:192.0.2.1]",
 			"http://[v1.a]",
 			"http://[fe80::1%25eth0]/",
 			"https://\u4f8b\u5b50.\u4e2d\u56fd/\u8def\u5f84",
@@ -441,6 +453,38 @@ class SupportedUrlTests(unittest.TestCase):
 			with self.subTest(port=port):
 				self.assertFalse(_isSupportedUrl(url))
 
+	def testValidatesIpLiteralsIndependentlyOfUrlsplit(self) -> None:
+		"""Apply stable IPv6 and IPvFuture validation across supported Python versions."""
+		validLiterals = (
+			"::1",
+			"2001:db8::1",
+			"::ffff:192.0.2.1",
+			"v1.a",
+			"vF.a-._~!$&'()*+,;=:",
+			"fe80::1%25eth0",
+		)
+		for literal in validLiterals:
+			with self.subTest(literal=literal):
+				self.assertTrue(_isValidIpLiteral(literal))
+
+		invalidLiterals = (
+			":::",
+			"gggg::1",
+			"127.0.0.1",
+			"v.a",
+			"V1.a",
+			"v1.",
+			"::1%25",
+			"fe80::1%20eth0",
+			"fe80::1%25eth%25zero",
+		)
+		for literal in invalidLiterals:
+			with self.subTest(literal=literal):
+				self.assertFalse(_isValidIpLiteral(literal))
+				legacyResult = SplitResult("http", f"[{literal}]", "", "", "")
+				with patch.dict(_IS_SUPPORTED_URL_GLOBALS, {"urlsplit": Mock(return_value=legacyResult)}):
+					self.assertFalse(_isSupportedUrl(f"http://[{literal}]"))
+
 	def testRejectsInvalidUrls(self) -> None:
 		"""Reject URLs with missing hosts, invalid ports, escapes, or raw delimiters."""
 		invalidUrls = (
@@ -454,6 +498,9 @@ class SupportedUrlTests(unittest.TestCase):
 			"http://[:::]",
 			"http://[gggg::1]",
 			"http://[v.a]",
+			"http://[127.0.0.1]",
+			"http://[v1.]",
+			"http://[::1%25]",
 			"http://::1",
 			"http://example.com:abc",
 			"http://example.com:65536",
@@ -490,6 +537,7 @@ class SupportedUrlTests(unittest.TestCase):
 			"https://?query",
 			"https://#fragment",
 			"www./path",
+			"www.example.com,tail",
 			"http://example.com\uff0fpath",
 			"http://example.com\uff1a80",
 		)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from ipaddress import IPv6Address
 import re
 import unicodedata
 from urllib.parse import urlsplit
@@ -16,6 +17,7 @@ _URL_TERMINATOR_CHARACTER_CLASS = (
 _URL_TERMINATOR_PATTERN = re.compile(rf"[{_URL_TERMINATOR_CHARACTER_CLASS}]")
 _AUTHORITY_END_PATTERN = re.compile(rf"[/?#{_URL_TERMINATOR_CHARACTER_CLASS}]")
 _INVALID_PERCENT_ESCAPE_PATTERN = re.compile(r"%(?![0-9A-Fa-f]{2})")
+_IPV_FUTURE_PATTERN = re.compile(r"v[0-9A-Fa-f]+\.[-A-Za-z0-9._~!$&'()*+,;=:]+")
 _HOSTNAME_PUNCTUATION_CHARACTERS = frozenset(
 	".-_%\u00b7\u0375\u05f3\u05f4\u200c\u200d\u3002\u30fb\uff0d\uff0e\uff3f\uff61"
 )
@@ -79,15 +81,42 @@ def _isAllowedUserinfoCharacter(character: str) -> bool:
 	return character.isalnum() or character in _ASCII_USERINFO_CHARACTERS
 
 
-def _findAuthorityEnd(text: str, prefixEnd: int) -> int:
+def _isValidIpLiteral(hostname: str) -> bool:
+	"""Return whether a bracketed hostname is a valid IPv6 or IPvFuture literal."""
+	if _IPV_FUTURE_PATTERN.fullmatch(hostname) is not None:
+		return True
+	ipv6Address, zoneSeparator, zoneId = hostname.partition("%25")
+	if "%" in ipv6Address or (zoneSeparator and (not zoneId or "%" in zoneId)):
+		return False
+	try:
+		_ = IPv6Address(ipv6Address)
+	except ValueError:
+		return False
+	return True
+
+
+def _findAuthorityEnd(text: str, urlStart: int, prefixEnd: int) -> int:
 	"""Return the position where a URL authority ends."""
+	if text[urlStart:prefixEnd].casefold() == "www.":
+		hasPortSeparator = False
+		for index in range(prefixEnd, len(text)):
+			character = text[index]
+			if character == ":" and not hasPortSeparator:
+				hasPortSeparator = True
+			elif _AUTHORITY_END_PATTERN.fullmatch(character) is not None or not _isAllowedHostnameCharacter(
+				character
+			):
+				return index
+		return len(text)
 	match = _AUTHORITY_END_PATTERN.search(text, prefixEnd)
 	return match.start() if match is not None else len(text)
 
 
 def _findAuthorityBoundary(text: str, urlStart: int, prefixEnd: int, authorityEnd: int) -> int:
 	"""Return the first prose boundary within a URL authority."""
-	authorityStart = urlStart if text[urlStart:prefixEnd].casefold() == "www." else prefixEnd
+	if text[urlStart:prefixEnd].casefold() == "www.":
+		return authorityEnd
+	authorityStart = prefixEnd
 	userinfoEnd = text.rfind("@", authorityStart, authorityEnd)
 	if userinfoEnd >= 0:
 		for index in range(authorityStart, userinfoEnd):
@@ -120,7 +149,7 @@ def _findAuthorityBoundary(text: str, urlStart: int, prefixEnd: int, authorityEn
 
 def _findUrlCandidateEnd(text: str, urlStart: int, prefixEnd: int) -> int:
 	"""Return the end of one URL candidate without scanning later candidates."""
-	authorityEnd = _findAuthorityEnd(text, prefixEnd)
+	authorityEnd = _findAuthorityEnd(text, urlStart, prefixEnd)
 	authorityBoundary = _findAuthorityBoundary(text, urlStart, prefixEnd, authorityEnd)
 	if authorityBoundary < authorityEnd:
 		return authorityBoundary
@@ -211,10 +240,11 @@ def isSupportedUrl(url: str) -> bool:
 	prefixMatch = _URL_PREFIX_PATTERN.match(url)
 	if prefixMatch is None or not _hasValidUrlStart(url, prefixMatch.end()):
 		return False
-	authorityEnd = _findAuthorityEnd(url, prefixMatch.end())
+	authorityEnd = _findAuthorityEnd(url, 0, prefixMatch.end())
 	if (
 		_URL_TERMINATOR_PATTERN.search(url) is not None
 		or _INVALID_PERCENT_ESCAPE_PATTERN.search(url)
+		or (authorityEnd < len(url) and url[authorityEnd] not in "/?#")
 		or _findAuthorityBoundary(url, 0, prefixMatch.end(), authorityEnd) != authorityEnd
 	):
 		return False
@@ -227,5 +257,8 @@ def isSupportedUrl(url: str) -> bool:
 	except ValueError:
 		return False
 	if not hostname or (hasBareWwwPrefix and hostname.rstrip(".").casefold() == "www"):
+		return False
+	hostAndPort = parsedUrl.netloc.rsplit("@", 1)[-1]
+	if hostAndPort.startswith("[") and not _isValidIpLiteral(hostAndPort[1:].partition("]")[0]):
 		return False
 	return port is None or 0 <= port <= 65535
