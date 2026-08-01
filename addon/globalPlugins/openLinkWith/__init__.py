@@ -8,7 +8,8 @@
 import globalPluginHandler
 import webbrowser
 import subprocess
-import gui, wx
+import gui
+import wx
 from gui import guiHelper
 import config
 import globalVars
@@ -20,6 +21,7 @@ import textInfos
 from .mydialog import MyDialog, browsersGoPrivate
 from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
+from .urlUtils import isSupportedUrl
 from scriptHandler import script
 from logHandler import log
 
@@ -47,7 +49,7 @@ def getLinkObj():
 		log.debugWarning("Unable to get the caret position.", exc_info=True)
 		ti: textInfos.TextInfo = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
 	ti.expand(textInfos.UNIT_CHARACTER)
-	obj: NVDAObject = ti.NVDAObjectAtStart
+	obj = ti.NVDAObjectAtStart
 	if (
 		obj.role == controlTypes.role.Role.GRAPHIC
 		and (
@@ -137,7 +139,7 @@ class VirtualMenu():
 				subprocess.Popen([exePath,flag, cls.url])
 			else:
 				subprocess.Popen(exePath+' '+cls.url)
-		except:
+		except Exception:
 			# Translators: Message displayed if error happens in activating a menu item.
 			message= _("Error in opening the link with {item} browser").format(item= cls.menuItems[cls.index])
 			wx.CallAfter(gui.messageBox, message,
@@ -182,7 +184,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			try:
 				self.prefmenu.RemoveItem(self.addonmenu)
-			except :
+			except Exception:
 				pass
 
 	@script(
@@ -256,8 +258,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		linkDestination = obj.value
 		# It is a link, but may be it's value is an email or other thing that shouldn't be opened with a browser.
-		import re
-		if linkDestination and not re.match(r'https?://|ftp://|www.', linkDestination):
+		if linkDestination and not isSupportedUrl(linkDestination):
 			# Translators: Message display if the link is not suited to open with the browser.
 			message= _("The link {linkValue} is not suitable to open with the browser").format(linkValue= linkDestination)
 			wx.CallAfter(gui.messageBox, message,

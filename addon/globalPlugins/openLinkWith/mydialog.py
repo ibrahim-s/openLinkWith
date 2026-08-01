@@ -2,11 +2,8 @@
 
 import wx
 import config
-import os 
 import webbrowser 
 import subprocess 
-from .getbrowsers import getBrowsers
-from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
 
@@ -61,7 +58,7 @@ class MyDialog(wx.Dialog):
 		self.Show()
  
 	def checkCloseAfterActivatingLink(self):
-		if config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]== True:
+		if config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]:
 			wx.CallLater(4000, self.Destroy)
 
 	def onOpen(self, evt, exe_path):

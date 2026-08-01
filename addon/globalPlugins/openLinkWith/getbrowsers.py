@@ -4,7 +4,6 @@
 #This module is aimed to get several browsers if found in the registry and their path.
 
 import os
-import sys
 
 # for compatibility with python3
 try:

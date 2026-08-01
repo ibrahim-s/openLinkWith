@@ -3,10 +3,12 @@
 # Code to get last spoken text is borrowed from speechHistory addon, thanks to James Scholes, Tyler Spivey and all contributors to that addon.
 
 import textInfos
-import re
-import api, ui
+import api
+import ui
 import speech
 import speechViewer
+
+from .urlUtils import findUrls
 
 import addonHandler
 addonHandler.initTranslation()
@@ -31,15 +33,6 @@ class LastSpoken:
 		if text.strip():
 			cls.lastSpokenText=text.strip()
 
-
-def find_urls (text):
-	"""Find URLs in a text string.
-	"""
-	url_re = re.compile(r"(?:https?://|ftp://|www.)[^ ,.?!#%=+][^ ][^ \t\n\r\f\v]*")
-	bad_chars = '\'\\.,[](){}:;"'
-	links= [s.strip(bad_chars) for s in url_re.findall(text)]
-	# remove duplicates
-	return list(dict.fromkeys(links))
 
 def getClipText() -> str:
 	try:
@@ -72,7 +65,7 @@ def getLinksFromSelectedText():
 		return
 	else:
 		text= isSelectedText()
-		links=find_urls(text)
+		links=findUrls(text)
 		if not links:
 			# Translators: Displayed if there is no links in selected text.
 			ui.message(_("no links in selected text"))
@@ -88,7 +81,7 @@ def getLinksFromClipboard():
 		ui.message(_("No text in clipboard."))
 		return
 	else:
-		links=find_urls(text)
+		links=findUrls(text)
 		if not links:
 			# Translators: Message displayed when there is no links in clipboard text.
 			ui.message(_("No links in clipboard text."))
@@ -104,7 +97,7 @@ def getLinksFromLastSpoken():
 		ui.message(_("No text."))
 		return
 	else:
-		links=find_urls(text)
+		links=findUrls(text)
 		if not links:
 			# Translators: Message displayed when there is no links in last spoken text.
 			ui.message(_("No links in last spoken text."))
