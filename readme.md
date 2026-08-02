@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2021.1 and beyond   
-Download [Stable version 3.2.6][1]  
+Download [Stable version 3.2.7][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -35,6 +35,13 @@ Here comes the beautiful hyper link menu feature, press the gesture of hyper lin
 Lot of times, while reading a message encounter a link to github, the browser I am logged in with it in github is Chrome, while my default browser is Firefox, and I need to open the link with Chrome to react with the issue of the link. Hyper link menu can help me now to go to github with the browser I am already logged in with it, even if it is not the default one.
 
 Alt+/ is the default gesture, but you can always change it through NVDA menu/Preferences/Input gestures/Open link with.
+
+## Changes for 3.2.7 ##
+
+*	Added new urlutility.py module for robust link parsing and validation.
+*	Improved link extraction and checking across all parts of a URL — earlier there were problems with results, which should now be fixed.
+*	Added a full set of unit tests in tests/unit/test_urlUtils.py to ensure reliability.
+*	All credit for this goes to [Cary Rowen](https://github.com/cary-rowen). Thank you, Cary!
 
 ## Changes for 3.2.5 ##
 
@@ -115,4 +122,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.6/openLinkWith-3.2.6.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.7/openLinkWith-3.2.7.nvda-addon
