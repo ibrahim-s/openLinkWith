@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'openLinkWith' '2.7'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2023-06-12 11:44+0300\n"
-"PO-Revision-Date: 2023-10-20 15:37+0300\n"
+"POT-Creation-Date: 2026-08-03 14:09+0300\n"
+"PO-Revision-Date: 2026-08-03 14:14+0300\n"
 "Last-Translator: Heorhii <nvda.translation.uk@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -17,63 +17,107 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.9\n"
+
+#. Translators: Displayed if there is no text selected.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:64
+msgid "No text selected"
+msgstr "Текст не виділено"
+
+#. Translators: Displayed if there is no links in selected text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:71
+msgid "no links in selected text"
+msgstr "немає посилань у виділеному тексті"
+
+#. Translators: Message displayed when there is no text in clipboard.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:81
+msgid "No text in clipboard."
+msgstr "Немає тексту в буфері обміну."
+
+#. Translators: Message displayed when there is no links in clipboard text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:87
+msgid "No links in clipboard text."
+msgstr "Немає посилань в тексті буфера обміну."
+
+#. Translators: Message displayed when there is no text in LastSpoken
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:97
+msgid "No text."
+msgstr "Немає тексту."
+
+#. Translators: Message displayed when there is no links in last spoken text.
+#: addon\globalPlugins\OpenLinkWith\getlinks.py:103
+msgid "No links in last spoken text."
+msgstr "Немає посилань в останньому промовленому тексті."
+
+#. Translators: Category of addon in input gestures dialog.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#: addon\globalPlugins\OpenLinkWith\mydialog.py:21
+#: addon\globalPlugins\OpenLinkWith\__init__.py:160 buildVars.py:21
+msgid "Open Link With"
+msgstr "Відкрити посилання за допомогою"
+
+#: addon\globalPlugins\OpenLinkWith\mydialog.py:28
+msgid "Open With"
+msgstr "Відкрити за допомогою"
+
+#. Translators: Informs the user that the link has no destination
+#: addon\globalPlugins\OpenLinkWith\__init__.py:72
+msgid "Link has no apparent destination"
+msgstr "Посилання нікуди не веде"
+
+#. Translators: Tell user that the command has been run on something that is not a link
+#: addon\globalPlugins\OpenLinkWith\__init__.py:76
+msgid "Not a link."
+msgstr "Не посилання."
 
 #. Translators: The title of virtual menu.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:46
+#: addon\globalPlugins\OpenLinkWith\__init__.py:97
 msgid "Open link with menu"
 msgstr "Меню відкриття посилань за допомогою"
 
 #. Translators: Message displayed if error happens in activating a menu item.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:88
+#: addon\globalPlugins\OpenLinkWith\__init__.py:144
 #, python-brace-format
 msgid "Error in opening the link with {item} browser"
 msgstr "Помилка відкриття посилання за допомогою браузера {item}"
 
 #. Translators: Title of message box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:91
+#: addon\globalPlugins\OpenLinkWith\__init__.py:147
 msgid "Error Message"
 msgstr "Повідомлення про помилку"
 
-#. Translators: Category of addon in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on
-#. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:104
-#: addon\globalPlugins\OpenLinkWith\mydialog.py:15 buildVars.py:23
-msgid "Open Link With"
-msgstr "Відкрити посилання за допомогою"
-
 #. Translators: label of openLinkWith setting menu in preferences menu
-#: addon\globalPlugins\OpenLinkWith\__init__.py:116
+#: addon\globalPlugins\OpenLinkWith\__init__.py:172
 msgid "OpenLinkWith..."
 msgstr "Відкрити посилання за допомогою..."
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:136
+#: addon\globalPlugins\OpenLinkWith\__init__.py:192
 msgid "Display Open Link With dialog with extracted links from selected text."
 msgstr "Відобразити діалог із видобутими посиланнями з виділеного тексту."
 
 #. Translators: displayed if another instance of the dialog is present.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:142
-#: addon\globalPlugins\OpenLinkWith\__init__.py:161
-#: addon\globalPlugins\OpenLinkWith\__init__.py:180
+#: addon\globalPlugins\OpenLinkWith\__init__.py:198
+#: addon\globalPlugins\OpenLinkWith\__init__.py:217
+#: addon\globalPlugins\OpenLinkWith\__init__.py:236
 msgid "another instance of the dialog is openned, close it please"
 msgstr "відкритий ще один екземпляр діалогу, закрийте його, будь ласка"
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:155
+#: addon\globalPlugins\OpenLinkWith\__init__.py:211
 msgid "Display Open Link With dialog with extracted links from clipboard."
 msgstr "Відобразити діалог із посиланнями з буфера обміну."
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:174
+#: addon\globalPlugins\OpenLinkWith\__init__.py:230
 msgid ""
 "Display Open Link With dialog with extracted links from last spoken text."
 msgstr "Відобразити діалог із посиланнями з останнього промовленого тексту."
 
 #. Translators: Message to be displayed in input help mode.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:193
+#: addon\globalPlugins\OpenLinkWith\__init__.py:249
 msgid ""
 "Display a menu, if standing on a hyper link to give you the option to open "
 "the link with other browsers on  your machine."
@@ -81,89 +125,69 @@ msgstr ""
 "Показує меню, якщо ви стоїте на гіперпосиланні, щоб дати вам можливість "
 "відкрити посилання в інших браузерах на вашому комп’ютері."
 
-#. Translators: Tell user that the command has been run on something that is not a link
-#: addon\globalPlugins\OpenLinkWith\__init__.py:206
-msgid "Not a link."
-msgstr "Не посилання."
-
 #. Translators: Message display if the link is not suited to open with the browser.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:212
+#: addon\globalPlugins\OpenLinkWith\__init__.py:263
 #, python-brace-format
 msgid "The link {linkValue} is not suitable to open with the browser"
 msgstr "Посилання {linkValue} не підходить для відкриття за допомогою браузера"
 
 #. Translators: Title of message box.
-#: addon\globalPlugins\OpenLinkWith\__init__.py:215
+#: addon\globalPlugins\OpenLinkWith\__init__.py:266
 msgid "Information"
 msgstr "Інформація"
 
 #. Translators: title of the dialog
-#: addon\globalPlugins\OpenLinkWith\__init__.py:247
+#: addon\globalPlugins\OpenLinkWith\__init__.py:298
 msgid "Open link with"
 msgstr "Відкрити посилання за допомогою"
 
 #. Translators: label of the check box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:252
+#: addon\globalPlugins\OpenLinkWith\__init__.py:303
 msgid "Close openLinkWith Dialog after activating a link"
 msgstr "Закрити діалог  після активації посилання"
 
 #. Translators: label of the check box
-#: addon\globalPlugins\OpenLinkWith\__init__.py:257
+#: addon\globalPlugins\OpenLinkWith\__init__.py:308
 msgid "If only one link, open directly with default browser"
 msgstr ""
 "Якщо посилання лише одне, відкрити його безпосередньо в основному браузері"
 
-#. Translators: Displayed if there is no text selected.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:80
-msgid "No text selected"
-msgstr "Текст не виділено"
-
-#. Translators: Displayed if there is no links in selected text.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:87
-msgid "no links in selected text"
-msgstr "немає посилань у виділеному тексті"
-
-#. Translators: Message displayed when there is no text in clipboard.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:97
-msgid "No text in clipboard."
-msgstr "Немає тексту в буфері обміну."
-
-#. Translators: Message displayed when there is no links in clipboard text.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:103
-msgid "No links in clipboard text."
-msgstr "Немає посилань в тексті буфера обміну."
-
-#. Translators: Message displayed when there is no text in LastSpoken
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:113
-msgid "No text."
-msgstr "Немає тексту."
-
-#. Translators: Message displayed when there is no links in last spoken text.
-#: addon\globalPlugins\OpenLinkWith\getlinks.py:119
-msgid "No links in last spoken text."
-msgstr "Немає посилань в останньому промовленому тексті."
-
-#: addon\globalPlugins\OpenLinkWith\mydialog.py:22
-msgid "Open With"
-msgstr "Відкрити за допомогою"
-
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:26
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
+#: buildVars.py:24
 msgid ""
 "\n"
-"\tExtract links if found in selected, last spoken or clipboard text, display "
+"Extract links if found in selected, last spoken or clipboard text, display "
 "them in a list in a dialog, giving you the option to open any link with "
 "various browsers found on computer.\n"
-"\tPress the command you assotiated with the addon via input gestures, to "
+"Press the command you assotiated with the addon via input gestures, to "
 "display OpenLinkWith dialog.\n"
-"\t"
 msgstr ""
 "\n"
-"\tВидобуває посилання, знайдені у виділеному, останньому вимовленому тексті "
+"Видобуває посилання, знайдені у виділеному, останньому вимовленому тексті "
 "або тексті в буфері обміну, показує їх списком у діалозі, надаючи вам "
 "можливість відкрити будь-яке посилання за допомогою різних браузерів, "
 "наявних на комп'ютері.\n"
-"\tНатисніть команду, яку ви асоціювали з додатком за допомогою жестів вводу, "
+"Натисніть команду, яку ви асоціювали з додатком за допомогою жестів вводу, "
 "щоб показати діалог додатка.\n"
-"\t"
+
+#. Brief changelog for this version
+#. Translators: what's new content for the add-on version to be shown in the add-on store
+#: buildVars.py:32
+msgid ""
+"- Added new urlutility.py module for robust link parsing and validation.\n"
+"- Improved link extraction and checking across all parts of a URL — earlier "
+"there were problems with results, which should now be fixed.\n"
+"- Added a full set of unit tests in tests/unit/test_urlUtils.py to ensure "
+"reliability.\n"
+"- All credit for this goes to [Cary Rowen](https://github.com/cary-rowen). "
+"Thank you, Cary!\n"
+msgstr ""
+"- Додано новий модуль urlutility.py для надійного розбору та перевірки "
+"посилань.\n"
+"- Покращено вилучення та перевірку посилань у всіх частинах URL-адреси — "
+"раніше виникали проблеми з результатами, які тепер мають бути усунені.\n"
+"- Додано повний набір модульних тестів у файлі tests/unit/test_urlUtils.py "
+"для забезпечення надійності.\n"
+"- Вся заслуга за це належить [Кері Роуену](https://github.com/cary-rowen). "
+"Дякуємо, Кері!\n"
