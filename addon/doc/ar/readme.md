@@ -2,7 +2,7 @@
 
 المطوِّرون: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 التوافقية مع إصدارات NVDA: 2021.1 فما فوق  
-تحميل [الإصدار 3.2.7][1]  
+تحميل [الإصدار 3.2.8][1]  
 
 هذه الإضافة تقوم باستخلاص الروابط إمّا مِن النص المحدد أو النص في الحافِظةأو آخِر نص منطوق.  
 و إظهارها في قاءمة في محاورة  
@@ -115,4 +115,4 @@ Alt+/ هو الإختصار الإفتراضي, و لكنك دائما تستط�
 
 *	الإصدار الأول.  
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.7/openLinkWith-3.2.7.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.8/openLinkWith-3.2.8.nvda-addon

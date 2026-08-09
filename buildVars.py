@@ -26,13 +26,10 @@ Extract links if found in selected, last spoken or clipboard text, display them 
 Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 """),
 	# version
-	addon_version="3.2.7",
+	addon_version="3.2.8",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Added new urlutility.py module for robust link parsing and validation.
-- Improved link extraction and checking across all parts of a URL — earlier there were problems with results, which should now be fixed.
-- Added a full set of unit tests in tests/unit/test_urlUtils.py to ensure reliability.
-- All credit for this goes to [Cary Rowen](https://github.com/cary-rowen). Thank you, Cary!
+	addon_changelog=_("""- Update Ukrainian localization, by [George-br](https://github.com/George-br).
 """),
 	# Author(s)
 	addon_author="Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Cary Rowen <manchen_0528@outlook.com>, Belala Toufik<belaalatoufik@gmail.com>",
