@@ -161,7 +161,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		LastSpoken._patch()
+		LastSpoken.initialize()
 
 		if hasattr(gui.settingsDialogs, 'SettingsPanel'):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithSettings)
