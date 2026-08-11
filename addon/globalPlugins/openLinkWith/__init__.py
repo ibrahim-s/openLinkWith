@@ -40,41 +40,56 @@ def getBrowserLabels():
 			result.append(browsersGoPrivate[browser][0])
 	return result
 
-def getLinkObj():
-	''' Aimed to access the object of a link , if not None,
-	it returns the object of the link, and in the other function we get the link destination by obj.value'''
+def _getLinkInfoFromObject(obj):
+	"""Return the nearest link object and its destination URL."""
+	if obj is None:
+		return
+	try:
+		linkData = obj.linkData
+	except (AttributeError, NotImplementedError):
+		linkData = None
+	if linkData:
+		return obj, linkData.destination
+	if obj.role == controlTypes.role.Role.GRAPHIC:
+		# Firefox exposes the URL on the graphic, while Chromium exposes it on the parent link.
+		if obj.value:
+			return obj, obj.value
+		if obj.parent and obj.parent.role == controlTypes.role.Role.LINK:
+			parentLink = obj.parent
+			return parentLink, parentLink.value
+	# Handle nested elements such as strong, em, or span inside a link.
+	for _ in range(10):
+		if obj is None:
+			break
+		if (
+			obj.role == controlTypes.role.Role.LINK
+			or controlTypes.state.State.LINKED in obj.states
+		):
+			return obj, obj.value
+		obj = obj.parent
+
+
+def getLinkInfo():
+	"""Return the link object and destination URL at the caret or focus."""
 	try:
 		ti: textInfos.TextInfo = api.getCaretPosition()
 	except RuntimeError:
 		log.debugWarning("Unable to get the caret position.", exc_info=True)
-		ti: textInfos.TextInfo = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
-	ti.expand(textInfos.UNIT_CHARACTER)
-	obj = ti.NVDAObjectAtStart
-	if (
-		obj.role == controlTypes.role.Role.GRAPHIC
-		and (
-			obj.parent
-			and obj.parent.role == controlTypes.role.Role.LINK
-		)
-	):
-		# In Firefox, graphics with a parent link also expose the parents link href value.
-		# In Chromium, the link href value must be fetched from the parent object. (#14779)
-		obj = obj.parent
-	if (
-		obj.role == controlTypes.role.Role.LINK  # If it's a link, or
-		or controlTypes.state.State.LINKED in obj.states  # if it isn't a link but contains one
-	):
-		linkDestination = obj.value
-		if linkDestination:
-			return obj
-		elif linkDestination is None:
-			# Translators: Informs the user that the link has no destination
-			ui.message(_("Link has no apparent destination"))
-			return
+		obj = api.getFocusObject()
 	else:
+		ti.expand(textInfos.UNIT_CHARACTER)
+		obj = ti.NVDAObjectAtStart
+	linkInfo = _getLinkInfoFromObject(obj)
+	if linkInfo is None:
 		# Translators: Tell user that the command has been run on something that is not a link
 		ui.message(_("Not a link."))
 		return
+	_obj, linkDestination = linkInfo
+	if not linkDestination:
+		# Translators: Informs the user that the link has no destination
+		ui.message(_("Link has no apparent destination"))
+		return
+	return linkInfo
 
 class VirtualMenu():
 	''' Helper class that deals with the virtual menu.
@@ -253,12 +268,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_showVirtualMenu(self, gesture):
 		#log.info('under script_showVirtualMenu...')
-		obj = getLinkObj()
-		if obj is None:
+		linkInfo = getLinkInfo()
+		if linkInfo is None:
 			return
-		linkDestination = obj.value
-		# It is a link, but may be it's value is an email or other thing that shouldn't be opened with a browser.
-		if linkDestination and not isSupportedUrl(linkDestination):
+		obj, linkDestination = linkInfo
+		# Some link destinations should not be opened with a browser.
+		if not isSupportedUrl(linkDestination):
 			# Translators: Message display if the link is not suited to open with the browser.
 			message= _("The link {linkValue} is not suitable to open with the browser").format(linkValue= linkDestination)
 			wx.CallAfter(gui.messageBox, message,
