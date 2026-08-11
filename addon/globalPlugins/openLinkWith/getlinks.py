@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-#this module is aimed to get the links under selected text, last spoken or in clipboard.
-# Code to get last spoken text is borrowed from speechHistory addon, thanks to James Scholes, Tyler Spivey and all contributors to that addon.
-
 import textInfos
 import api
 import ui
-import speech
-import speechViewer
+from speech.extensions import pre_speech
+from speech.speech import CHUNK_SEPARATOR
 
 from .urlUtils import findUrls
 
@@ -14,24 +10,26 @@ import addonHandler
 addonHandler.initTranslation()
 
 class LastSpoken:
-	''' Helper class that contains the code, to get last spoken text.'''
-	lastSpokenText=None
+	"""Track the most recent non-empty speech text."""
+
+	lastSpokenText = None
 
 	@classmethod
-	def _patch(cls):
-		cls.oldSpeak = speech.speech.speak
-		speech.speech.speak = cls.mySpeak
+	def initialize(cls):
+		"""Register the speech extension point handler."""
+		pre_speech.register(cls._onSpeech)
 
 	@classmethod
 	def terminate(cls):
-		speech.speech.speak = cls.oldSpeak
+		"""Unregister the speech extension point handler."""
+		pre_speech.unregister(cls._onSpeech)
 
 	@classmethod
-	def mySpeak(cls, sequence, *args, **kwargs):
-		cls.oldSpeak(sequence, *args, **kwargs)
-		text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
-		if text.strip():
-			cls.lastSpokenText=text.strip()
+	def _onSpeech(cls, speechSequence):
+		"""Store the text from a speech sequence."""
+		text = CHUNK_SEPARATOR.join(item for item in speechSequence if isinstance(item, str)).strip()
+		if text:
+			cls.lastSpokenText = text
 
 
 def getClipText() -> str:
