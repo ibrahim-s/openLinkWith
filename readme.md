@@ -1,8 +1,8 @@
 # Open Link With #
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
-NVDA compatibility: 2021.1 and beyond   
-Download [Stable version 3.2.8][1]  
+NVDA compatibility: 2024.2 and beyond   
+Download [Stable version 3.2.9][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -35,6 +35,14 @@ Here comes the beautiful hyper link menu feature, press the gesture of hyper lin
 Lot of times, while reading a message encounter a link to github, the browser I am logged in with it in github is Chrome, while my default browser is Firefox, and I need to open the link with Chrome to react with the issue of the link. Hyper link menu can help me now to go to github with the browser I am already logged in with it, even if it is not the default one.
 
 Alt+/ is the default gesture, but you can always change it through NVDA menu/Preferences/Input gestures/Open link with.
+
+## Changes for 3.2.9 ##
+
+*	The addon now uses NVDA’s builtin pre_speech extension point instead of patching NVDA’s core speech function.  
+*	Minimum NVDA version is now 2024.2 (since that’s when the extension point was introduced).  
+*	When collecting spoken text, the addon now uses NVDA’s CHUNK_SEPARATOR, resulting cleaner and more accurate extraction of links from speech sequences.  
+*	In Hyper link menu feature, the addon now recognizes links inside nested elements and graphical objects, using the same approach as NVDA core, making it capable of detecting and accessing more and more links.
+*	As always credit goes to [Cary Rowen](https://github.com/cary-rowen), thanks Cary! 
 
 ## Changes for 3.2.7 ##
 
@@ -122,4 +130,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.8/openLinkWith-3.2.8.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.2.9/openLinkWith-3.2.9.nvda-addon
