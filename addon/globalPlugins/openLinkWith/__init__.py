@@ -7,6 +7,7 @@
 
 import globalPluginHandler
 import webbrowser
+import browseMode
 import subprocess
 import gui
 import wx
@@ -22,7 +23,7 @@ from .mydialog import MyDialog, browsersGoPrivate
 from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
 from .getbrowsers import getBrowsers
 from .urlUtils import isSupportedUrl
-from scriptHandler import script
+from scriptHandler import script, getLastScriptRepeatCount
 from logHandler import log
 
 import addonHandler
@@ -178,29 +179,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
 		LastSpoken.initialize()
 
-		if hasattr(gui.settingsDialogs, 'SettingsPanel'):
-			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithSettings)
-		else:
-			self.prefmenu= gui.mainFrame.sysTrayIcon.preferencesMenu
-			self.addonmenu= self.prefmenu.Append(wx.ID_ANY,
-			# Translators: label of openLinkWith setting menu in preferences menu
-			_("OpenLinkWith..."),
-			"Opens setting dialog"
-			)
-			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onOpenSettingDialog, self.addonmenu)
-
-	def onOpenSettingDialog(self, evt):
-		gui.mainFrame._popupSettingsDialog(OpenLinkWithSettings)
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(OpenLinkWithPanel)
 
 	def terminate(self):
 		LastSpoken.terminate()
-		if hasattr(gui.settingsDialogs, 'SettingsPanel'):
-			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(OpenLinkWithSettings)
-		else:
-			try:
-				self.prefmenu.RemoveItem(self.addonmenu)
-			except Exception:
-				pass
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(OpenLinkWithPanel)
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
@@ -299,16 +282,32 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif key== 'escape':
 			VirtualMenu.clearMenu(self, reportFocus= True)
 
-#default configuration of settings dialog or panel for the addon
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _("Announce address or link of a web page if pressed once, and copies it to clipboard when pressed twice."),
+	)
+	def script_getPageAddress(self, gesture):
+		obj = api.getNavigatorObject().treeInterceptor
+		if not isinstance(obj, browseMode.BrowseModeTreeInterceptor):
+			gesture.send()
+			return
+		link = obj.documentURL
+		#log.info(f'link: {link}')
+		repeatCount = getLastScriptRepeatCount()
+		if repeatCount == 0:
+			ui.message(link)
+		else:
+			api.copyToClip(link, notify=True)
+
+#default configuration for the addon
 configspec={
 	"closeDialogAfterActivatingALink": "boolean(default= False)",
 	"openDirectlyIfThereIsOnlyOneLink": "boolean(default= False)"
 }
 config.conf.spec["openLinkWith"]= configspec
 
-#make either SettingsPanel or SettingsDialog class
-parentClass= gui.settingsDialogs.SettingsPanel if hasattr(gui.settingsDialogs, 'SettingsPanel') else gui.settingsDialogs.SettingsDialog
-class OpenLinkWithSettings(parentClass):
+#make SettingsPanel class
+class OpenLinkWithPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of the dialog
 	title= _("Open link with")
 
@@ -324,16 +323,6 @@ class OpenLinkWithSettings(parentClass):
 		self.openDirectlyCheckBox.SetValue(config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"])
 		settingsSizerHelper.addItem(self.openDirectlyCheckBox)
 
-	if hasattr(parentClass, 'onSave'):
-		def onSave(self):
-			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
-			config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]= self.openDirectlyCheckBox.IsChecked() 
-
-	else:
-		def onOk(self, evt):
-			config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
-			config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]= self.openDirectlyCheckBox.IsChecked() 
-			super(OpenLinkWithSettings, self).onOk(evt)
-
-		def postInit(self):
-			self.closeDialogCheckBox.SetFocus()
+	def onSave(self):
+		config.conf["openLinkWith"]["closeDialogAfterActivatingALink"]= self.closeDialogCheckBox.IsChecked() 
+		config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]= self.openDirectlyCheckBox.IsChecked() 
