@@ -291,13 +291,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not isinstance(obj, browseMode.BrowseModeTreeInterceptor):
 			gesture.send()
 			return
-		link = obj.documentURL
-		#log.info(f'link: {link}')
+		try:
+			page_address = getattr(obj, 'documentURL', getattr(obj, 'documentConstantIdentifier', None))
+		except Exception:
+			log.error("Error getting page address", exc_info=True)
+			ui.message(_("Unable to retrieve page address"))
+			return
+		#log.info(f'page_address: {page_address}')
 		repeatCount = getLastScriptRepeatCount()
 		if repeatCount == 0:
-			ui.message(link)
+			ui.message(page_address)
 		else:
-			api.copyToClip(link, notify=True)
+			api.copyToClip(page_address, notify=True)
 
 #default configuration for the addon
 configspec={
