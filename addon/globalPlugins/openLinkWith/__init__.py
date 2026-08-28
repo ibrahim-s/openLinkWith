@@ -184,7 +184,7 @@ class VirtualMenu():
 				flag= browsersGoPrivate[basicBrowser][1]
 				subprocess.Popen([exePath,flag, cls.url])
 			else:
-				subprocess.Popen(exePath+' '+cls.url)
+				subprocess.Popen([exePath, cls.url])
 		except Exception:
 			# Translators: Message displayed if error happens in activating a menu item.
 			message= _("Error in opening the link with {item} browser").format(item= cls.menuItems[cls.index])
@@ -300,9 +300,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gesture.send()
 			return
 		try:
-			page_address = getattr(obj, 'documentURL', getattr(obj, 'documentConstantIdentifier', None))
+			page_address = getattr(obj, "documentURL", None) or getattr(
+				obj, "documentConstantIdentifier", None
+			)
 		except Exception:
 			log.error("Error getting page address", exc_info=True)
+			ui.message(_("Unable to retrieve page address"))
+			return
+		if not page_address:
 			ui.message(_("Unable to retrieve page address"))
 			return
 		#log.info(f'page_address: {page_address}')
