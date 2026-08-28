@@ -12,11 +12,12 @@ and give you the opportunity to open them with several browsers if found on your
 
 *	First you have to assign a gestures for the addon through input gestures dialog.  
 *	You can do that going to NVDA Menu/Preferences/Input Gestures/Openlink with category.  
-*	There are three unassigned gestures there.  
+*	There are four unassigned gestures for extracting links.
 	1.	A gesture to display links under selected text.  
 	2.	A gesture to display link in clipboard text.  
 	3.	A gesture to display link in last spoken text.  
-*	Thus assigning a gesture, you have the option to get and display links, either from selected , clipboard or last spoken text.  
+	4.	A gesture to display links from the current context.
+*	The current context checks selected text, then last spoken text, then clipboard, and uses the first source containing a valid link.
 *	then press the shortcut of the addon, as you have chosen it  
 *	if present, links will be displayed in a listbox in a dialog  
 *	Choose the link, and press enter if you want to open it with the default browser.  
