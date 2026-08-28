@@ -292,9 +292,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gesture.send()
 			return
 		try:
-			page_address = getattr(obj, 'documentURL', getattr(obj, 'documentConstantIdentifier', None))
+			page_address = getattr(obj, "documentURL", None) or getattr(
+				obj, "documentConstantIdentifier", None
+			)
 		except Exception:
 			log.error("Error getting page address", exc_info=True)
+			ui.message(_("Unable to retrieve page address"))
+			return
+		if not page_address:
 			ui.message(_("Unable to retrieve page address"))
 			return
 		#log.info(f'page_address: {page_address}')
