@@ -64,7 +64,7 @@ class MyDialog(wx.Dialog):
 	def onOpen(self, evt, exe_path):
 		url= self.getUrl()
 		if url:
-			subprocess.Popen(exe_path+' '+url)
+			subprocess.Popen([exe_path, url])
 			self.checkCloseAfterActivatingLink()
 
 	def onOpenPrivate(self, evt, exe_path):
