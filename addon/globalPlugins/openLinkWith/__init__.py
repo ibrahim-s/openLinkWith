@@ -239,7 +239,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		# Translators: Message to be displayed in input help mode.
 		description= _(
-			"Display Open Link With dialog with extracted links from the current context."
+			"Display Open Link With dialog with extracted links from the current context. "
+			"It first checks selected text, then last spoken text, then clipboard, "
+			"and uses the first source containing a valid link."
 		),
 	)
 	def script_displayLinksInContext(self, gesture):
