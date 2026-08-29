@@ -22,7 +22,7 @@ addon_info = AddonInfo(
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("""
-Extract links if found in selected, last spoken or clipboard text, display them in a list in a dialog, giving you the option to open any link with various browsers found on computer.
+Extract links if found in selected, last spoken or clipboard text, display them in a list in a dialog, giving you the option to open any link with various browsers found on computer. The current context command checks selected text, then last spoken text, then clipboard, and uses the first source containing a valid link.
 Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 """),
 	# version

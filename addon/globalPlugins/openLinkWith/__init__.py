@@ -20,7 +20,13 @@ import controlTypes
 import queueHandler
 import textInfos
 from .mydialog import MyDialog, browsersGoPrivate
-from .getlinks import LastSpoken, getLinksFromSelectedText, getLinksFromClipboard, getLinksFromLastSpoken
+from .getlinks import (
+	LastSpoken,
+	getLinksFromSelectedText,
+	getLinksFromClipboard,
+	getLinksFromLastSpoken,
+	getLinksFromContext,
+)
 from .getbrowsers import getBrowsers
 from .urlUtils import isSupportedUrl
 from scriptHandler import script, getLastScriptRepeatCount
@@ -40,6 +46,30 @@ def getBrowserLabels():
 		if browser in browsersGoPrivate:
 			result.append(browsersGoPrivate[browser][0])
 	return result
+
+
+def _displayLinks(getLinks, noLinksMessage=None):
+	"""Display links returned by a source getter, or report a supplied empty result message."""
+	global DIALOG
+	try:
+		if DIALOG is not None and DIALOG.IsShown():
+			# Translators: displayed if another instance of the dialog is present.
+			ui.message(_("another instance of the dialog is openned, close it please"))
+			return
+	except (AttributeError, RuntimeError):
+		pass
+	DIALOG = None
+	links = getLinks()
+	if not links:
+		if noLinksMessage:
+			ui.message(noLinksMessage)
+		return
+	if len(links) == 1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
+		webbrowser.open(links[0], new=2)
+		return
+	browsers = getBrowsers()
+	DIALOG = MyDialog(gui.mainFrame, links, browsers)
+	DIALOG.postInit()
 
 def _getLinkInfoFromObject(obj):
 	"""Return the nearest link object and its destination URL."""
@@ -190,57 +220,37 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description= _("Display Open Link With dialog with extracted links from selected text.")
 	)
 	def script_displayLinksInSelectedText(self, gesture):
-		global DIALOG
-		if DIALOG:
-			# Translators: displayed if another instance of the dialog is present.
-			ui.message(_("another instance of the dialog is openned, close it please"))
-			return
-		list_= getLinksFromSelectedText()
-		if list_:
-			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0], new=2)
-				return
-			browsers= getBrowsers()
-			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-			DIALOG.postInit()
+		_displayLinks(getLinksFromSelectedText)
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
 		description= _("Display Open Link With dialog with extracted links from clipboard.")
 	)
 	def script_displayLinksInClipboardText(self, gesture):
-		global DIALOG
-		if DIALOG:
-			# Translators: displayed if another instance of the dialog is present.
-			ui.message(_("another instance of the dialog is openned, close it please"))
-			return
-		list_= getLinksFromClipboard()
-		if list_:
-			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0], new=2)
-				return
-			browsers= getBrowsers()
-			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-			DIALOG.postInit()
+		_displayLinks(getLinksFromClipboard)
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
 		description= _("Display Open Link With dialog with extracted links from last spoken text.")
 	)
 	def script_displayLinksInLastSpokenText(self, gesture):
-		global DIALOG
-		if DIALOG:
-			# Translators: displayed if another instance of the dialog is present.
-			ui.message(_("another instance of the dialog is openned, close it please"))
-			return
-		list_= getLinksFromLastSpoken()
-		if list_:
-			if len(list_)==1 and config.conf["openLinkWith"]["openDirectlyIfThereIsOnlyOneLink"]:
-				webbrowser.open(list_[0], new=2)
-				return
-			browsers= getBrowsers()
-			DIALOG= MyDialog(gui.mainFrame, list_, browsers)
-			DIALOG.postInit()
+		_displayLinks(getLinksFromLastSpoken)
+
+	@script(
+		# Translators: Message to be displayed in input help mode.
+		description= _(
+			"Display Open Link With dialog with extracted links from the current context. "
+			"It first checks selected text, then last spoken text, then clipboard, "
+			"and uses the first source containing a valid link."
+		),
+	)
+	def script_displayLinksInContext(self, gesture):
+		"""Display links from the first current context source that contains them."""
+		_displayLinks(
+			getLinksFromContext,
+			# Translators: Displayed when no links are found in any current context source.
+			_("No links found in selected text, last spoken text, or clipboard."),
+		)
 
 	@script(
 		# Translators: Message to be displayed in input help mode.
