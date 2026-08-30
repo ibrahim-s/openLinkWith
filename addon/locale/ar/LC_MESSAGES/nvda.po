@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'openLinkWith' '2.9'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2026-08-30 12:39+0300\n"
-"PO-Revision-Date: 2026-08-30 13:32+0300\n"
+"PO-Revision-Date: 2026-08-30 14:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -38,17 +38,17 @@ msgstr "ليس هناك نص في الحافِظة."
 #. Translators: Message displayed when there is no links in clipboard text.
 #: addon\globalPlugins\OpenLinkWith\getlinks.py:93
 msgid "No links in clipboard text."
-msgstr "ليس هناك روابط في النص الموجود في الحافِظة"
+msgstr "ليس هناك روابط في النص الموجود في الحافِظة."
 
 #. Translators: Message displayed when there is no text in LastSpoken
 #: addon\globalPlugins\OpenLinkWith\getlinks.py:102
 msgid "No text."
-msgstr "ليس هناك نص"
+msgstr "ليس هناك نص."
 
 #. Translators: Message displayed when there is no links in last spoken text.
 #: addon\globalPlugins\OpenLinkWith\getlinks.py:107
 msgid "No links in last spoken text."
-msgstr "ليس هناك روابط في آخِر نص منطوق"
+msgstr "ليس هناك روابط في آخِر نص منطوق."
 
 #. Translators: Category of addon in input gestures dialog.
 #. Add-on summary/title, usually the user visible name of the add-on
@@ -86,7 +86,7 @@ msgstr "قائمةْ Open link with"
 #. Translators: Message displayed if error happens in activating a menu item.
 #: addon\globalPlugins\OpenLinkWith\__init__.py:190
 msgid "Error in opening the link with {item} browser"
-msgstr "حدَثَ خَطأ عند فتح الرابط بالمتصفح {item}."
+msgstr "حدَثَ خَطأ عند فتح الرابط بالمتصفح {item}"
 
 #. Translators: Title of message box
 #: addon\globalPlugins\OpenLinkWith\__init__.py:193
@@ -137,7 +137,7 @@ msgstr ""
 #. Translators: Message display if the link is not suited to open with the browser.
 #: addon\globalPlugins\OpenLinkWith\__init__.py:271
 msgid "The link {linkValue} is not suitable to open with the browser"
-msgstr "الرابط ذو القيمة {linkValue} ليس مِن المناسب فتحه بالمتصفح."
+msgstr "الرابط ذو القيمة {linkValue} ليس مِن المناسب فتحه بالمتصفح"
 
 #. Translators: Title of message box.
 #: addon\globalPlugins\OpenLinkWith\__init__.py:274
@@ -186,11 +186,12 @@ msgid ""
 "Press the command you assotiated with the addon via input gestures, to "
 "display OpenLinkWith dialog.\n"
 msgstr ""
-"استخراج الروابط إذا وُجدت في النص المحدد أو آخر نص منطوق أو النص في الحافظة، "
-"ثم عرضها في قائمة داخل مربع حوار، مما يتيح لك خيار فتح أي رابط باستخدام "
-"مختلف المتصفحات الموجودة على الكمبيوتر. يقوم أمر السياق الحالي بفحص النص "
-"المحدد أولاً، ثم آخر نص منطوق، ثم الحافظة، ويستخدم أول مصدر يحتوي على رابط "
-"صالح.\n"
+"\n"
+"\vاستخراج الروابط إذا وُجدت في النص المحدد أو آخر نص منطوق أو النص في "
+"الحافظة، ثم عرضها في قائمة داخل مربع حوار، مما يتيح لك خيار فتح أي رابط "
+"باستخدام مختلف المتصفحات الموجودة على الكمبيوتر. يقوم أمر السياق الحالي بفحص "
+"النص المحدد أولاً، ثم آخر نص منطوق، ثم الحافظة، ويستخدم أول مصدر يحتوي على "
+"رابط صالح.\n"
 "اضغط على الأمر الذي ربطته بالإضافة عبر إيماءات الإدخال لعرض مربع الحوار "
 "(OpenLinkWith).\n"
 
