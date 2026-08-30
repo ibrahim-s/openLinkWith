@@ -2,7 +2,7 @@
 
 Authors: Ibrahim Hamadeh, Cary Rowen, Belala Toufik  
 NVDA compatibility: 2024.2 and beyond   
-Download [Stable version 3.3.0][1]  
+Download [Stable version 3.3.1][1]  
 
 This addon is used to extract links either from selected, clipboard, or last spoken text  
 display them in a list in a dialog  
@@ -44,6 +44,13 @@ If on a web page, and would like to know the page address,  press the shortcut o
 This feature does not have an assign shortcut, so you should assign to it a shortcut by yourself, going to:
 
 NVDA menu/Preferences/Input gestures/Open link with/Announce address or link of a web page if pressed once, and copies it to clipboard when pressed twice.
+
+## Changes for 3.3.1 ##
+
+*	Add a single gesture (unassigned by default) that finds links based on the current context:  
+First checks selected text, then last spoken text, and finally the clipboard. The first source containing valid links is used.  
+For users, this means one gesture can handle the most common link sources without removing the existing source-specific commands.  
+In other words, now one gesture only, will do the job of the three previous ones, and may be leaving the other gestures for other addons, test it and judge!
 
 ## Changes for 3.3.0 ##
 
@@ -143,4 +150,4 @@ So that we have the obtion to close the dialog after activating a link.
 
 *	Initial version.
 
-[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.3.0/openLinkWith-3.3.0.nvda-addon
+[1]: https://github.com/ibrahim-s/openLinkWith/releases/download/3.3.1/openLinkWith-3.3.1.nvda-addon

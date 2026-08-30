@@ -26,10 +26,13 @@ Extract links if found in selected, last spoken or clipboard text, display them 
 Press the command you assotiated with the addon via input gestures, to display OpenLinkWith dialog.
 """),
 	# version
-	addon_version="3.3.0",
+	addon_version="3.3.1",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Add a new feature, that announces a web page address, if the shortcut pressed once, and copies it to clipboard if pressed twice.
+	addon_changelog=_("""- Add a single gesture (unassigned by default) that finds links based on the current context:  
+First checks selected text, then last spoken text, and finally the clipboard. The first source containing valid links is used.  
+For users, this means one gesture can handle the most common link sources without removing the existing source-specific commands.  
+In other words, now one gesture only, will do the job of the three previous ones, and may be leaving the other gestures for other addons, test it and judge!
 """),
 	# Author(s)
 	addon_author="Ibrahim Hamadeh <ibra.hamadeh@hotmail.com>, Cary Rowen <manchen_0528@outlook.com>, Belala Toufik<belaalatoufik@gmail.com>",
